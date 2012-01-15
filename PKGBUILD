@@ -104,9 +104,9 @@ package_linux-grsec() {
   groups=('base')
   depends=('linux-pax-flags' 'coreutils' 'linux-firmware' 'module-init-tools>=3.16' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
-  provides=('kernel26-pax')
-  conflicts=('kernel26-pax')
-  replaces=('kernel26-pax')
+  provides=('kernel26-grsec')
+  conflicts=('kernel26-grsec')
+  replaces=('kernel26-grsec')
   backup=("etc/mkinitcpio.d/${pkgname}.preset")
   install=$pkgname.install
 
@@ -153,9 +153,9 @@ package_linux-grsec() {
 
 package_linux-grsec-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel with grsecurity patches"
-  provides=('kernel26-pax-headers')
-  conflicts=('kernel26-pax-headers')
-  replaces=('kernel26-pax-headers')
+  provides=('kernel26-grsec-headers')
+  conflicts=('kernel26-grsec-headers')
+  replaces=('kernel26-grsec-headers')
 
   mkdir -p "${pkgdir}/lib/modules/${_kernver}"
 
