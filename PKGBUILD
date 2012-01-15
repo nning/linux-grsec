@@ -51,7 +51,7 @@ build() {
   patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
 
   # Add grsecurity patches
-  patch -Np1 -i $srcdir/grsecurity-$grsecver-$pkgver-$_timestamp.patch
+  patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
@@ -290,4 +290,12 @@ md5sums=('69dfba755ab8691a426d8061c94a7ddc'
          'ed2ae3455b28a4b49b80b55639b05339'
          '4110d738970f56a917bc906ae4dabe09'
          'b51d415293605cb98b583a958c434fe3'
+         '2f4e8da2611ce693f5f77806a0ffb858')
+md5sums=('69dfba755ab8691a426d8061c94a7ddc'
+         'a05adb83f25158ac1d84a0d73254dc8f'
+         '9d3c56a4b999c8bfbd4018089a62f662'
+         '342071f852564e1ad03b79271a90b1a5'
+         'ed2ae3455b28a4b49b80b55639b05339'
+         '4110d738970f56a917bc906ae4dabe09'
+         'ca296c80faa88f262ca44a0a976497a1'
          '2f4e8da2611ce693f5f77806a0ffb858')
