@@ -9,36 +9,28 @@ pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.1
 _grsecver=2.2.2
-_grsecdate=201201031759
-pkgver=${_basekernel}.7
+_timestamp=201201111906
+pkgver=${_basekernel}.8
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
+
+_menuconfig=0
+[ ! -z $MENUCONFIG ] && _menuconfig=1
+
 source=(
 	ftp://ftp.kernel.org/pub/linux/kernel/v3.0/linux-$pkgver.tar.bz2
-	http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch
+	http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
 	change-default-console-loglevel.patch
 	i915-fix-ghost-tv-output.patch
-	i915-fix-incorrect-error-message.patch
-	usb-add-reset-resume-quirk-for-several-webcams.patch
 	config
 	config.x86_64
 	$pkgname.install
 	$pkgname.preset
 )
 md5sums=(
-	f45deba9a3892892d05232a61ba44d0b
-	588f6dc320493a70007d2dd317113d60
-	9d3c56a4b999c8bfbd4018089a62f662
-	342071f852564e1ad03b79271a90b1a5
-	4d1d920c7e9c084be05fe060c4d38bc1
-	d00814b57448895e65fbbc800e8a58ba
-	ed2ae3455b28a4b49b80b55639b05339
-	4110d738970f56a917bc906ae4dabe09
-	1fa6cb659baa3bcff8447ab66f6eece0
-	2f4e8da2611ce693f5f77806a0ffb858
 )
 
 build() {
@@ -53,22 +45,13 @@ build() {
   # needed.
   patch -Np1 -i "${srcdir}/i915-fix-ghost-tv-output.patch"
 
-  # In 3.1.1, a DRM_DEBUG message is falsely declared as DRM_ERROR. This
-  # worries users, as this message is displayed even at loglevel 4. Fix
-  # this.
-  patch -Np1 -i "${srcdir}/i915-fix-incorrect-error-message.patch"
-
-  # Add the USB_QUIRK_RESET_RESUME for several webcams
-  # FS#26528
-  patch -Np1 -i "${srcdir}/usb-add-reset-resume-quirk-for-several-webcams.patch"
-
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
 
   # Add grsecurity patches
-  patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch
+  patch -Np1 -i $srcdir/grsecurity-$grsecver-$pkgver-$_timestamp.patch
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
@@ -87,21 +70,27 @@ build() {
   sed -ri 's|^(SUBLEVEL =).*|\1|' Makefile
 
   # get kernel version
-  #make prepare
+  [ "$_menuconfig" = "0" ] && {
+    make prepare
+  }
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
-# make menuconfig # CLI menu for configuration
-  #make nconfig # new CLI menu for configuration
-  #make xconfig # X-based configuration
-  #make oldconfig # using old config from previous kernel version
-  # ... or manually edit .config
+  [ "$_menuconfig" = "1" ] && {
+    make menuconfig # CLI menu for configuration
+    #make nconfig # new CLI menu for configuration
+    #make xconfig # X-based configuration
+    #make oldconfig # using old config from previous kernel version
+    # ... or manually edit .config
+  }
 
   ####################
   # stop here
   # this is useful to configure the kernel
-# msg "Stopping build"
-# return 1
+  [ "$_menuconfig" = "1" ] && {
+    msg "Stopping build"
+    return 1
+  }
   ####################
 
   yes "" | make config
@@ -113,11 +102,11 @@ build() {
 package_linux-grsec() {
   pkgdesc="The Linux Kernel and modules with grsecurity patches"
   groups=('base')
-  depends=('coreutils' 'linux-firmware' 'module-init-tools>=3.16' 'mkinitcpio>=0.7' 'gradm')
+  depends=('linux-pax-flags' 'coreutils' 'linux-firmware' 'module-init-tools>=3.16' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
-  provides=('kernel26-grsecurity')
-  conflicts=('kernel26-grsecurity')
-  replaces=('kernel26-grsecurity')
+  provides=('kernel26-pax')
+  conflicts=('kernel26-pax')
+  replaces=('kernel26-pax')
   backup=("etc/mkinitcpio.d/${pkgname}.preset")
   install=$pkgname.install
 
@@ -164,9 +153,9 @@ package_linux-grsec() {
 
 package_linux-grsec-headers() {
   pkgdesc="Header files and scripts for building modules for linux kernel with grsecurity patches"
-  provides=('kernel26-grsecurity-headers')
-  conflicts=('kernel26-grsecurity-headers')
-  replaces=('kernel26-grsecurity-headers')
+  provides=('kernel26-pax-headers')
+  conflicts=('kernel26-pax-headers')
+  replaces=('kernel26-pax-headers')
 
   mkdir -p "${pkgdir}/lib/modules/${_kernver}"
 
@@ -195,6 +184,7 @@ package_linux-grsec-headers() {
   # copy files necessary for later builds, like nvidia and vmware
   cp Module.symvers "${pkgdir}/usr/src/linux-${_kernver}"
   cp -a scripts "${pkgdir}/usr/src/linux-${_kernver}"
+  cp -a tools "${pkgdir}/usr/src/linux-${_kernver}"
 
   # fix permissions on scripts dir
   chmod og-w -R "${pkgdir}/usr/src/linux-${_kernver}/scripts"
@@ -292,3 +282,12 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
+
+md5sums=('69dfba755ab8691a426d8061c94a7ddc'
+         'a05adb83f25158ac1d84a0d73254dc8f'
+         '9d3c56a4b999c8bfbd4018089a62f662'
+         '342071f852564e1ad03b79271a90b1a5'
+         'ed2ae3455b28a4b49b80b55639b05339'
+         '4110d738970f56a917bc906ae4dabe09'
+         'b51d415293605cb98b583a958c434fe3'
+         '2f4e8da2611ce693f5f77806a0ffb858')
