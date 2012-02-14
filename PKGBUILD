@@ -35,7 +35,7 @@ md5sums=(
 	905e73610bfdb7fd497fa95adcbea2ce
 	9d3c56a4b999c8bfbd4018089a62f662
 	342071f852564e1ad03b79271a90b1a5
-	36338af46f47f02c52ee9812f8135c40
+	d76c8dc97ad6dba240f9323c03c9f54c
 	36338af46f47f02c52ee9812f8135c40
 	21c5e7d3428660d90814c6b5cf0ae52d
 	2f4e8da2611ce693f5f77806a0ffb858
@@ -290,3 +290,11 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
+md5sums=('7f6177a2add41b553b693af838e6ac2d'
+         '905e73610bfdb7fd497fa95adcbea2ce'
+         '9d3c56a4b999c8bfbd4018089a62f662'
+         '342071f852564e1ad03b79271a90b1a5'
+         'ed2ae3455b28a4b49b80b55639b05339'
+         '36338af46f47f02c52ee9812f8135c40'
+         '21c5e7d3428660d90814c6b5cf0ae52d'
+         '2f4e8da2611ce693f5f77806a0ffb858')
