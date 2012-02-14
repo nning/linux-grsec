@@ -25,6 +25,7 @@ source=(
 	http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
 	change-default-console-loglevel.patch
 	i915-fix-ghost-tv-output.patch
+	i915-gpu-finish.patch	
 	config
 	config.x86_64
 	$pkgname.install
@@ -35,6 +36,7 @@ md5sums=(
 	905e73610bfdb7fd497fa95adcbea2ce
 	9d3c56a4b999c8bfbd4018089a62f662
 	342071f852564e1ad03b79271a90b1a5
+	e787ef4bc66e2d9a7883eaece7a915b9
 	6ebf013e2aeff94c1c083e9cc6e0eefd
 	36338af46f47f02c52ee9812f8135c40
 	21c5e7d3428660d90814c6b5cf0ae52d
@@ -43,6 +45,10 @@ md5sums=(
 
 build() {
   cd $srcdir/linux-$pkgver
+
+  # fix FS#27883
+  # drm/i915: Only clear the GPU domains upon a successful finish
+  patch -Np1 -i "${srcdir}/i915-gpu-finish.patch"
 
   # Some chips detect a ghost TV output
   # mailing list discussion: http://lists.freedesktop.org/archives/intel-gfx/2011-April/010371.html
@@ -290,3 +296,4 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
+
