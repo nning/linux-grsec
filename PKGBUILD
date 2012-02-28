@@ -8,9 +8,9 @@ pkgbase=linux-grsec
 pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.2
-_grsecver=2.2.2
-_timestamp=201202131824
-pkgver=${_basekernel}.6
+_grsecver=2.9
+_timestamp=201202272117
+pkgver=${_basekernel}.8
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
@@ -32,8 +32,8 @@ source=(
 	$pkgname.preset
 )
 md5sums=(
-	7f6177a2add41b553b693af838e6ac2d
-	905e73610bfdb7fd497fa95adcbea2ce
+	a8e65f43d6afd10feb8c1f50b559a84e
+	a9fa3dc5601eca6dafd53bcb333b377d
 	9d3c56a4b999c8bfbd4018089a62f662
 	342071f852564e1ad03b79271a90b1a5
 	e787ef4bc66e2d9a7883eaece7a915b9
@@ -296,4 +296,3 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
-
