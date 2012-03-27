@@ -1,16 +1,16 @@
 # Original kernel maintainers:
-#	Tobias Powalowski <tpowa@archlinux.org>
-#	Thomas Baechler <thomas@archlinux.org>
+#   Tobias Powalowski <tpowa@archlinux.org>
+#   Thomas Baechler <thomas@archlinux.org>
 # Contributors:
-#	henning mueller <henning@orgizm.net>
+#   henning mueller <henning@orgizm.net>
 
 pkgbase=linux-grsec
 pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.2
+_basekernel=3.3
 _grsecver=2.9
-_timestamp=201203022148
-pkgver=${_basekernel}.9
+_timestamp=201203251922
+pkgver=${_basekernel}
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
@@ -20,28 +20,28 @@ options=(!strip)
 _menuconfig=0
 [ ! -z $MENUCONFIG ] && _menuconfig=1
 
-#	ftp://ftp.kernel.org/pub/linux/kernel/v3.0/linux-$pkgver.tar.bz2
+# ftp://ftp.kernel.org/pub/linux/kernel/v3.0/linux-$pkgver.tar.bz2
 source=(
-	ftp://ftp.halifax.rwth-aachen.de/pub/linux/kernel/v3.x/linux-$pkgver.tar.xz
-	http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
-	change-default-console-loglevel.patch
-	i915-fix-ghost-tv-output.patch
-	i915-gpu-finish.patch	
-	config
-	config.x86_64
-	$pkgname.install
-	$pkgname.preset
+  ftp://ftp.halifax.rwth-aachen.de/pub/linux/kernel/v3.x/linux-$pkgver.tar.xz
+  http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver.0-$_timestamp.patch
+  change-default-console-loglevel.patch
+  i915-fix-ghost-tv-output.patch
+  i915-gpu-finish.patch 
+  config
+  config.x86_64
+  $pkgname.install
+  $pkgname.preset
 )
 md5sums=(
-	a9b65ef81e036ad8aeaa6c60dbebad4c
-	a7a72b8786e6c4bc100edf7504955ce0
-	9d3c56a4b999c8bfbd4018089a62f662
-	342071f852564e1ad03b79271a90b1a5
-	e787ef4bc66e2d9a7883eaece7a915b9
-	6ebf013e2aeff94c1c083e9cc6e0eefd
-	36338af46f47f02c52ee9812f8135c40
-	21c5e7d3428660d90814c6b5cf0ae52d
-	2f4e8da2611ce693f5f77806a0ffb858
+  7133f5a2086a7d7ef97abac610c094f5
+  b33a3b183c5bc77558d2bf308aba7f34
+  9d3c56a4b999c8bfbd4018089a62f662
+  342071f852564e1ad03b79271a90b1a5
+  e787ef4bc66e2d9a7883eaece7a915b9
+  6ebf013e2aeff94c1c083e9cc6e0eefd
+  36338af46f47f02c52ee9812f8135c40
+  21c5e7d3428660d90814c6b5cf0ae52d
+  2f4e8da2611ce693f5f77806a0ffb858
 )
 
 build() {
