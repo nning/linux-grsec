@@ -34,6 +34,16 @@ source=(
   $pkgname.preset
 )
 md5sums=(
+  aa9b07bbd30ed38607a30795e7628ccf
+  ec2602db06c5c9fba9d95dee77e8ca53
+  9d3c56a4b999c8bfbd4018089a62f662
+  342071f852564e1ad03b79271a90b1a5
+  3cb9e819538197398aad5db5529b22d6
+  774c6ff0113463ca573de091bba1ef92
+  395bed4b472b8f9299c79daf4b78b206
+  232d054a18f3b5556d9eecc13bbeb99a
+  21c5e7d3428660d90814c6b5cf0ae52d
+  2f4e8da2611ce693f5f77806a0ffb858
 )
 
 build() {
@@ -290,34 +300,3 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
-md5sums=('aa9b07bbd30ed38607a30795e7628ccf'
-         'ec2602db06c5c9fba9d95dee77e8ca53'
-         'd9f89e70f892d780630e00a6e411c966'
-         '9d3c56a4b999c8bfbd4018089a62f662'
-         '342071f852564e1ad03b79271a90b1a5'
-         'e787ef4bc66e2d9a7883eaece7a915b9'
-         '6ebf013e2aeff94c1c083e9cc6e0eefd'
-         '36338af46f47f02c52ee9812f8135c40'
-         '21c5e7d3428660d90814c6b5cf0ae52d'
-         '2f4e8da2611ce693f5f77806a0ffb858')
-md5sums=('aa9b07bbd30ed38607a30795e7628ccf'
-         'ec2602db06c5c9fba9d95dee77e8ca53'
-         'd9f89e70f892d780630e00a6e411c966'
-         '9d3c56a4b999c8bfbd4018089a62f662'
-         '342071f852564e1ad03b79271a90b1a5'
-         '3cb9e819538197398aad5db5529b22d6'
-         '774c6ff0113463ca573de091bba1ef92'
-         '6ebf013e2aeff94c1c083e9cc6e0eefd'
-         '36338af46f47f02c52ee9812f8135c40'
-         '21c5e7d3428660d90814c6b5cf0ae52d'
-         '2f4e8da2611ce693f5f77806a0ffb858')
-md5sums=('aa9b07bbd30ed38607a30795e7628ccf'
-         'ec2602db06c5c9fba9d95dee77e8ca53'
-         '9d3c56a4b999c8bfbd4018089a62f662'
-         '342071f852564e1ad03b79271a90b1a5'
-         '3cb9e819538197398aad5db5529b22d6'
-         '774c6ff0113463ca573de091bba1ef92'
-         '6ebf013e2aeff94c1c083e9cc6e0eefd'
-         '36338af46f47f02c52ee9812f8135c40'
-         '21c5e7d3428660d90814c6b5cf0ae52d'
-         '2f4e8da2611ce693f5f77806a0ffb858')
