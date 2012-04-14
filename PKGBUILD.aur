@@ -76,10 +76,6 @@ build() {
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
-  if [ "${_kernelname}" != "" ]; then
-    sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
-  fi
-
   # remove the sublevel from Makefile
   # this ensures our kernel version is always 3.X-ARCH
   # this way, minor kernel updates will not break external modules
