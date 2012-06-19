@@ -9,9 +9,9 @@ pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.4
 _grsecver=2.9.1
-_timestamp=201206171836
+_timestamp=201206182054
 pkgver=${_basekernel}.3
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -32,15 +32,6 @@ source=(
   $pkgname.preset
 )
 md5sums=(
-  d13125cf34b340e20dd4e54ca88c3b35
-  502443a3226c1c035ffa0c91d8e58ca9
-  9d3c56a4b999c8bfbd4018089a62f662
-  342071f852564e1ad03b79271a90b1a5
-  3cb9e819538197398aad5db5529b22d6
-  361d4429de0b6ba178b6b0f7eb82e1c7
-  6900b78be0d5e83973c8a5e91a0489e2
-  21c5e7d3428660d90814c6b5cf0ae52d
-  2f4e8da2611ce693f5f77806a0ffb858
 )
 
 build() {
@@ -289,3 +280,12 @@ package_linux-grsec-headers() {
   # remove unneeded architectures
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
+md5sums=('d13125cf34b340e20dd4e54ca88c3b35'
+         'a3614e92b9394bcdd0e50031ca76b93c'
+         '9d3c56a4b999c8bfbd4018089a62f662'
+         '342071f852564e1ad03b79271a90b1a5'
+         '3cb9e819538197398aad5db5529b22d6'
+         '361d4429de0b6ba178b6b0f7eb82e1c7'
+         '6900b78be0d5e83973c8a5e91a0489e2'
+         '21c5e7d3428660d90814c6b5cf0ae52d'
+         '2f4e8da2611ce693f5f77806a0ffb858')
