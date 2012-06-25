@@ -9,9 +9,9 @@ pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.4
 _grsecver=2.9.1
-_timestamp=201206201813
-pkgver=${_basekernel}.3
-pkgrel=3
+_timestamp=201206231147
+pkgver=${_basekernel}.4
+pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -26,17 +26,21 @@ source=(
   change-default-console-loglevel.patch
   i915-fix-ghost-tv-output.patch
   fix-acerhdf-1810T-bios.patch
+  3.4.4-fix-backlight-regression.patch
+  3.4.4-fix-gtx560ti-nouveau-regression.patch
   config.i686
   config.x86_64
   $pkgname.install
   $pkgname.preset
 )
 md5sums=(
-  d13125cf34b340e20dd4e54ca88c3b35
-  41736e77e62baf8080d4499629d432d8
+  3d77adc7f8ab8e8e05729f126d883dce
+  134b880af7f0439c0511fe9e074cdd78
   9d3c56a4b999c8bfbd4018089a62f662
   342071f852564e1ad03b79271a90b1a5
   3cb9e819538197398aad5db5529b22d6
+  d2626a48d10d2be931753805849e86bf
+  a3b60ec0dc1aea66e8ed5ca67efe7151
   361d4429de0b6ba178b6b0f7eb82e1c7
   6900b78be0d5e83973c8a5e91a0489e2
   21c5e7d3428660d90814c6b5cf0ae52d
@@ -64,6 +68,14 @@ build() {
   # https://lkml.org/lkml/2012/2/19/51
   # add support for latest bios of Acer 1810T acerhdf module
   patch -Np1 -i "${srcdir}/fix-acerhdf-1810T-bios.patch"
+
+  # Fix backlight control on some laptops:
+  # https://bugzilla.kernel.org/show_bug.cgi?id=43168
+  patch -Np1 -i "${srcdir}/3.4.4-fix-backlight-regression.patch"
+
+  # fix nouveau regression
+  # Arch Linux bug report: FS#30417
+  patch -Np1 -i "${srcdir}/3.4.4-fix-gtx560ti-nouveau-regression.patch"
 
   # Add grsecurity patches
   patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
