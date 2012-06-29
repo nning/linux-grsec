@@ -8,7 +8,7 @@ pkgname=linux-grsec
 _kernelname=${pkgname#linux}
 _basekernel=3.4
 _grsecver=2.9.1
-_timestamp=201206231147
+_timestamp=201206251759
 pkgver=${_basekernel}.4
 pkgrel=1
 arch=(i686 x86_64)
@@ -34,7 +34,7 @@ source=(
 )
 md5sums=(
   3d77adc7f8ab8e8e05729f126d883dce
-  134b880af7f0439c0511fe9e074cdd78
+  c6c5422f6ea2ace97898423a58e80aa7
   9d3c56a4b999c8bfbd4018089a62f662
   342071f852564e1ad03b79271a90b1a5
   3cb9e819538197398aad5db5529b22d6
