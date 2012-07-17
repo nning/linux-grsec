@@ -9,9 +9,9 @@ pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.4
 _grsecver=2.9.1
-_timestamp=201207021921
-pkgver=${_basekernel}.4
-pkgrel=2
+_timestamp=201207161807
+pkgver=${_basekernel}.5
+pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -33,8 +33,8 @@ source=(
   $pkgname.preset
 )
 md5sums=(
-  3d77adc7f8ab8e8e05729f126d883dce
-  b04a4f1ea20c68cdecc01dcded78ca94
+  38a6f11c0e9033710aad148add2dd27c
+  20b2fcc43b1923568b1e3cc5e16d464c
   9d3c56a4b999c8bfbd4018089a62f662
   342071f852564e1ad03b79271a90b1a5
   3cb9e819538197398aad5db5529b22d6
