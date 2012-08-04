@@ -9,8 +9,8 @@ pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.4
 _grsecver=2.9.1
-_timestamp=201207161807
-pkgver=${_basekernel}.5
+_timestamp=201208021520
+pkgver=${_basekernel}.7
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
@@ -24,21 +24,15 @@ source=(
   ftp://ftp.halifax.rwth-aachen.de/pub/linux/kernel/v3.x/linux-$pkgver.tar.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   change-default-console-loglevel.patch
-  i915-fix-ghost-tv-output.patch
-  fix-acerhdf-1810T-bios.patch
-  3.4.4-fix-backlight-regression.patch
   config.i686
   config.x86_64
   $pkgname.install
   $pkgname.preset
 )
 md5sums=(
-  38a6f11c0e9033710aad148add2dd27c
-  20b2fcc43b1923568b1e3cc5e16d464c
+  55240a52f144bd82bd729a670725d656
+  c3c70efdc12b99a9e32e3e132977a6d6
   9d3c56a4b999c8bfbd4018089a62f662
-  342071f852564e1ad03b79271a90b1a5
-  3cb9e819538197398aad5db5529b22d6
-  d2626a48d10d2be931753805849e86bf
   13730122bc63df256948eddcf7e218ef
   d53375c8c772b88047754975b910f202
   21c5e7d3428660d90814c6b5cf0ae52d
@@ -48,39 +42,25 @@ md5sums=(
 build() {
   cd $srcdir/linux-$pkgver
 
-  # Some chips detect a ghost TV output
-  # mailing list discussion: http://lists.freedesktop.org/archives/intel-gfx/2011-April/010371.html
-  # Arch Linux bug report: FS#19234
-  #
-  # It is unclear why this patch wasn't merged upstream, it was accepted,
-  # then dropped because the reasoning was unclear. However, it is clearly
-  # needed.
-  patch -Np1 -i "${srcdir}/i915-fix-ghost-tv-output.patch"
-
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
-
-  # Patch submitted upstream, waiting for inclusion:
-  # https://lkml.org/lkml/2012/2/19/51
-  # add support for latest bios of Acer 1810T acerhdf module
-  patch -Np1 -i "${srcdir}/fix-acerhdf-1810T-bios.patch"
-
-  # Fix backlight control on some laptops:
-  # https://bugzilla.kernel.org/show_bug.cgi?id=43168
-  patch -Np1 -i "${srcdir}/3.4.4-fix-backlight-regression.patch"
 
   # Add grsecurity patches
   patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
-  # remove the sublevel from Makefile
-  # this ensures our kernel version is always 3.X-ARCH
-  # this way, minor kernel updates will not break external modules
-  # we need to change this soon, see FS#16702
-  sed -ri 's|^(SUBLEVEL =).*|\1|' Makefile
+  if [ "${_kernelname}" != "" ]; then
+    sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
+  fi
+
+  # set extraversion to pkgrel
+  sed -ri "s|^(EXTRAVERSION =).*|\1 -${pkgrel}|" Makefile
+
+  # don't run depmod on 'make install'. We'll do this ourselves in packaging
+  sed -i '2iexit 0' scripts/depmod.sh
 
   # get kernel version
   [ "$_menuconfig" = "0" ] && {
@@ -113,17 +93,17 @@ build() {
 }
 
 package_linux-grsec() {
-  pkgdesc="The Linux Kernel and modules with grsecurity patches"
+  pkgdesc="The Linux Kernel and modules with PaX patches"
   groups=('base')
-  depends=('linux-pax-flags' 'coreutils' 'linux-firmware' 'module-init-tools>=3.16' 'mkinitcpio>=0.7')
+  depends=('linux-grsec-flags' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26-grsec')
   conflicts=('kernel26-grsec')
   replaces=('kernel26-grsec')
   backup=("etc/mkinitcpio.d/${pkgname}.preset")
-  install=$pkgname.install
+  install=${pkgname}.install
 
-  cd $srcdir/linux-$pkgver
+  cd "${srcdir}/linux-${_basekernel}"
 
   KARCH=x86
 
@@ -155,27 +135,33 @@ package_linux-grsec() {
   rm -f "${pkgdir}"/lib/modules/${_kernver}/{source,build}
   # remove the firmware
   rm -rf "${pkgdir}/lib/firmware"
-  # gzip -9 all modules to safe 100MB of space
+  # gzip -9 all modules to save 100MB of space
   find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
   # make room for external modules
   ln -s "../extramodules-${_basekernel}${_kernelname:--ARCH}" "${pkgdir}/lib/modules/${_kernver}/extramodules"
   # add real version for building modules and running depmod from post_install/upgrade
   mkdir -p "${pkgdir}/lib/modules/extramodules-${_basekernel}${_kernelname:--ARCH}"
   echo "${_kernver}" > "${pkgdir}/lib/modules/extramodules-${_basekernel}${_kernelname:--ARCH}/version"
+
+  # move module tree /lib -> /usr/lib
+  mv "$pkgdir/lib" "$pkgdir/usr"
+
+  # Now we call depmod...
+  depmod -b "$pkgdir" -F System.map "$_kernver"
 }
 
 package_linux-grsec-headers() {
-  pkgdesc="Header files and scripts for building modules for linux kernel with grsecurity patches"
+  pkgdesc="Header files and scripts for building modules for linux kernel with PaX patches"
   provides=('kernel26-grsec-headers')
   conflicts=('kernel26-grsec-headers')
   replaces=('kernel26-grsec-headers')
 
-  mkdir -p "${pkgdir}/lib/modules/${_kernver}"
+  install -dm755 "${pkgdir}/usr/lib/modules/${_kernver}"
 
-  cd "${pkgdir}/lib/modules/${_kernver}"
-  ln -sf ../../../usr/src/linux-${_kernver} build
+  cd "${pkgdir}/usr/lib/modules/${_kernver}"
+  ln -sf ../../../src/linux-${_kernver} build
 
-  cd "${srcdir}/linux-${pkgver}"
+  cd "${srcdir}/linux-${_basekernel}"
   install -D -m644 Makefile \
     "${pkgdir}/usr/src/linux-${_kernver}/Makefile"
   install -D -m644 kernel/Makefile \
@@ -186,7 +172,7 @@ package_linux-grsec-headers() {
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/include"
 
   for i in acpi asm-generic config crypto drm generated linux math-emu \
-    media net pcmcia scsi sound trace video xen; do
+    media mtd net pcmcia scsi sound trace video xen; do
     cp -a include/${i} "${pkgdir}/usr/src/linux-${_kernver}/include/"
   done
 
@@ -197,7 +183,6 @@ package_linux-grsec-headers() {
   # copy files necessary for later builds, like nvidia and vmware
   cp Module.symvers "${pkgdir}/usr/src/linux-${_kernver}"
   cp -a scripts "${pkgdir}/usr/src/linux-${_kernver}"
-  cp -a tools "${pkgdir}/usr/src/linux-${_kernver}"
 
   # fix permissions on scripts dir
   chmod og-w -R "${pkgdir}/usr/src/linux-${_kernver}/scripts"
@@ -218,7 +203,7 @@ package_linux-grsec-headers() {
 
   cp drivers/media/video/*.h  "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/"
 
-  for i in bt8xx cpia2 cx25840 cx88 em28xx et61x251 pwc saa7134 sn9c102; do
+  for i in bt8xx cpia2 cx25840 cx88 em28xx pwc saa7134 sn9c102; do
     mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/${i}"
     cp -a drivers/media/video/${i}/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/${i}"
   done
@@ -293,5 +278,5 @@ package_linux-grsec-headers() {
   done
 
   # remove unneeded architectures
-  rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
+  rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,xtensa}
 }
