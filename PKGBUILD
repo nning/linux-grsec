@@ -5,12 +5,12 @@
 #   henning mueller <henning@orgizm.net>
 
 pkgbase=linux-grsec
-pkgname=(linux-grsec linux-grsec-headers)
+true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.4
+_basekernel=3.5
 _grsecver=2.9.1
-_timestamp=201208021520
-pkgver=${_basekernel}.7
+_timestamp=201208151951
+pkgver=${_basekernel}.2
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
@@ -29,14 +29,14 @@ source=(
   $pkgname.install
   $pkgname.preset
 )
-md5sums=(
-  55240a52f144bd82bd729a670725d656
-  c3c70efdc12b99a9e32e3e132977a6d6
-  9d3c56a4b999c8bfbd4018089a62f662
-  13730122bc63df256948eddcf7e218ef
-  7cecc61c9e3f1c8638fdd2f054a4913d
-  21c5e7d3428660d90814c6b5cf0ae52d
-  2f4e8da2611ce693f5f77806a0ffb858
+sha256sums=(
+  a6833d733605eae0d9fc4c277dfdb3dae5e62b5cf120bcc6d1c7828adfe9bf8d
+  6a91c7a088ad4bb9e153ec139d21d0c2a5fea7b39acb4f8a96490e16811d285d
+  b9d79ca33b0b51ff4f6976b7cd6dbb0b624ebf4fbf440222217f8ffc50445de4
+  cf8a85808a73a00627861ac3d67413245a29070b4c82c70cd9e3ea246538b211
+  aa843cf550385cf7c401854ffff88530b9199279c3274fa793dd702075553dc7
+  57ec92e05ae4ee11f7e87599b921c82198fee51c05f1349e29c57cfcbb2638a7
+  ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d
 )
 
 build() {
