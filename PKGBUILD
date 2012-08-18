@@ -4,7 +4,7 @@
 # Contributors:
 #   henning mueller <henning@orgizm.net>
 
-pkgbase=linux-grsec
+pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.5
