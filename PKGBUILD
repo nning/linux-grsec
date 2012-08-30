@@ -139,8 +139,8 @@ package_linux-grsec() {
   cp arch/$KARCH/boot/bzImage "${pkgdir}/boot/vmlinuz-${pkgname}"
 
   # add vmlinux and gcc plugins
-  install -D -m644 vmlinux "$pkgdir/usr/src/linux-$_kernver/vmlinux"
-  install -D -m644 tools/gcc/*.so "$pkgdir/usr/src/linux-$_kernver"
+  install -Dm644 vmlinux "$pkgdir/usr/src/linux-$_kernver/vmlinux"
+  install -Dm644 tools/gcc/*.so "$pkgdir/usr/src/linux-$_kernver/tools/gcc/"
 
   # install fallback mkinitcpio.conf file and preset file for kernel
   install -D -m644 "${srcdir}/${pkgname}.preset" "${pkgdir}/etc/mkinitcpio.d/${pkgname}.preset"
