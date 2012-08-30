@@ -72,6 +72,7 @@ build() {
 
   # Add grsecurity patches
   patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
+  rm localversion-grsec
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
