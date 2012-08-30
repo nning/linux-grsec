@@ -126,7 +126,7 @@ package_linux-grsec() {
   backup=("etc/mkinitcpio.d/${pkgname}.preset")
   install=${pkgname}.install
 
-  cd "${srcdir}/linux-${pkgver}"
+  cd "$srcdir/linux-$_basekernel"
 
   KARCH=x86
 
