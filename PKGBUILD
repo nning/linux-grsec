@@ -140,7 +140,7 @@ package_linux-grsec() {
 
   # add vmlinux and gcc plugins
   install -Dm644 vmlinux "$pkgdir/usr/src/linux-$_kernver/vmlinux"
-  mkdir "$pkgdir/usr/src/linux-$_kernver/tools/gcc/"
+  mkdir -p "$pkgdir/usr/src/linux-$_kernver/tools/gcc"
   install -m644 tools/gcc/*.so "$pkgdir/usr/src/linux-$_kernver/tools/gcc/"
 
   # install fallback mkinitcpio.conf file and preset file for kernel
