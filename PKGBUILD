@@ -119,7 +119,7 @@ build() {
 package_linux-grsec() {
   pkgdesc="The Linux Kernel and modules with PaX patches"
   groups=('base')
-  depends=('linux-pax-flags' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
+  depends=('gradm' 'linux-pax-flags' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26-grsec')
   conflicts=('kernel26-grsec')
