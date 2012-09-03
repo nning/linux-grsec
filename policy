@@ -237,21 +237,19 @@
 # As an example, we'll create a variable out of a list of objects
 # and their associated permissions that RBAC enforces
 define grsec_denied {
-	/boot		h
-	/dev/grsec	h
-	/dev/kmem	h
-	/dev/mem	h
-	/dev/port	h
-	/etc/grsec	h
-	/proc/kcore	h
-	/proc/slabinfo	h
-	/proc/modules	h
-	/proc/kallsyms	h
+	/boot				h
+	/dev/grsec			h
+	/dev/kmem			h
+	/dev/mem			h
+	/dev/port			h
+	/etc/grsec			h
+	/proc/kcore			h
+	/proc/slabinfo		h
+	/proc/modules		h
+	/proc/kallsyms		h
 	# hide and suppress logs about accessing this path
-	/lib/modules	hs
-	/lib32/modules	hs
-	/lib64/modules	hs
-	/etc/ssh	h
+	/usr/lib/modules 	hs
+	/etc/ssh			h
 }
 # usage:
 # $grsec_denied
@@ -261,16 +259,12 @@ subject / rvka
 	/
 	/dev
 	/dev/urandom	r
-	/dev/random	r
-	/etc		r
-	/bin		rx
-	/sbin		rx
-	/lib		rx
-	/lib32		rx
-	/libx32		rx
-	/lib64		rx
-	/usr		rx
-	/proc r
+	/dev/random		r
+	/etc			r
+	/bin			rx
+	/sbin			rx
+	/usr			rx
+	/proc			r
 	$grsec_denied
 	-CAP_ALL
 	connect disabled
@@ -322,10 +316,6 @@ subject /
 	/dev/cdrom	r
 	/bin		rx
 	/sbin		rx
-	/lib		rx
-	/lib32		rx
-	/libx32		rx
-	/lib64		rx
 	/usr		rx
 # compilation of kernel code should be done within the admin role	
 	/usr/src	h
@@ -345,7 +335,12 @@ subject /
 # if sshd needs to be restarted, it can be done through the admin role
 # restarting sshd should be followed immediately by a gradm -u
 	/usr/sbin/sshd
-	
+
+	/home/henning/.gem/ruby/1.9.1/bin	rx
+	/home/henning/.cabal/bin			rx
+	/home/henning/dev/collective/tools	rx
+	/home/henning/dev/env				rx
+
 	-CAP_KILL
 	-CAP_SYS_TTY_CONFIG
 	-CAP_LINUX_IMMUTABLE
@@ -390,10 +385,6 @@ subject /usr/sbin/sshd dpo
 	/etc/grsec	h
 	/home
 	/home/*/.ssh/authorized_keys r
-	/lib		rx
-	/lib32		rx
-	/libx32		rx
-	/lib64		rx
 	/root
 	/proc		r
 	/proc/*/oom_adj rw
@@ -402,9 +393,6 @@ subject /usr/sbin/sshd dpo
 	/proc/sys/kernel/ngroups_max r
 	/selinux	r
 	/usr/lib	rx
-	/usr/lib32	rx
-	/usr/libx32	rx
-	/usr/lib64	rx
 	/usr/share/zoneinfo r
 	/var/log
 	/var/mail
@@ -428,23 +416,12 @@ subject /usr/sbin/sshd dpo
 	# to access user keys
 	+CAP_DAC_OVERRIDE
 
-subject /usr/X11R6/bin/Xorg
+subject /usr/bin/Xorg
 	/dev/mem	rw
 
 	+CAP_SYS_ADMIN
 	+CAP_SYS_TTY_CONFIG
 	+CAP_SYS_RAWIO
-
-subject /usr/X11R6/bin/XFree86
-	/dev/mem	rw
-
-	+CAP_SYS_ADMIN
-	+CAP_SYS_TTY_CONFIG
-	+CAP_SYS_RAWIO
-
-	-PAX_SEGMEXEC
-	-PAX_PAGEEXEC
-	-PAX_MPROTECT
 
 subject /usr/bin/ssh
 	/etc/ssh/ssh_config r
@@ -455,10 +432,7 @@ subject /usr/bin/postgres
 subject /usr/bin/exim
 	/dev/log rw
 
-subject /sbin/klogd
-	+CAP_SYS_ADMIN
-
-subject /sbin/syslog-ng
+subject /usr/sbin/syslog-ng
 	+CAP_SYS_ADMIN
 
 subject /usr/sbin/rsyslogd
@@ -481,7 +455,7 @@ subject /bin/su
 subject /usr/bin/sudo
 	/dev/log rw
 
-subject /sbin/getty
+subject /sbin/agetty
 	/var/log/wtmp w
 
 subject /sbin/init
@@ -495,19 +469,25 @@ subject /usr/bin/xauth
 
 # many distros clutter up /lib with shell scripts
 # that can be easily hijacked for malicious purposes
-subject /lib o
+subject /usr/lib o
 	/ h
 	-CAP_ALL
 	connect disabled
 	bind disabled
 
-subject /lib/ld-linux.so.2 o
+subject /usr/lib32 o
 	/ h
 	-CAP_ALL
 	connect disabled
 	bind disabled
 
-subject /lib64/ld-linux-x86-64.so.2 o
+subject /usr/lib/ld-linux.so.2 o
+	/ h
+	-CAP_ALL
+	connect disabled
+	bind disabled
+
+subject /usr/lib/ld-linux-x86-64.so.2 o
 	/ h
 	-CAP_ALL
 	connect disabled
