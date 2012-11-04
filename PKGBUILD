@@ -11,7 +11,7 @@ _basekernel=3.6
 _grsecver=2.9.1
 _timestamp=201210312121
 pkgver=${_basekernel}.5
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -99,7 +99,7 @@ build() {
 }
 
 package_linux-grsec() {
-  pkgdesc="The Linux Kernel and modules with PaX patches"
+  pkgdesc="The Linux Kernel and modules with grsecurity/PaX patches"
   groups=('base')
   depends=('gradm' 'linux-pax-flags' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
@@ -159,7 +159,7 @@ package_linux-grsec() {
 }
 
 package_linux-grsec-headers() {
-  true && pkgdesc="Header files and scripts for building modules for linux kernel with PaX patches"
+  true && pkgdesc="Header files and scripts for building modules for linux kernel with grsecurity/PaX patches"
   provides=('kernel26-grsec-headers')
   conflicts=('kernel26-grsec-headers')
   replaces=('kernel26-grsec-headers')
