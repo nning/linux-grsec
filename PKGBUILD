@@ -9,9 +9,9 @@ true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.6
 _grsecver=2.9.1
-_timestamp=201211051957
+_timestamp=201211072001
 pkgver=${_basekernel}.6
-pkgrel=2
+pkgrel=3
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -35,7 +35,7 @@ source=(
 sha256sums=(
   4ab9a6ef1c1735713f9f659d67f92efa7c1dfbffb2a2ad544005b30f9791784f
   221a0644f48c4d3d5c3eef63f470c73a2fd1c535280813991a47a4b713f6eae9
-  8aff66a2d99843da0d6229e229253f19258f8efc8a8fbbd64907665606917be6
+  7c4a7f5b5aa9144d0e7beb7f588d6f4c408cdf82d4fbb688b3be0ecd7026b8df
   1b80207cb0af6957c040e6151a2376b1b36e33b1aa6ed00da0de030b955b2e9c
   14dd64008db40ad1f25a26a62770e58631664a998caaff217cd6be883d306051
   882bbadbb0d6694f31930d9208564bfd61a19767069c2ac9ca3f543cad3d5149
