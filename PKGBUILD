@@ -22,7 +22,7 @@ _menuconfig=0
 
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  http://www.kernel.org/pub/linux/kernel/v3.x/patch-${_basekernel}.xz
+  http://www.kernel.org/pub/linux/kernel/v3.x/patch-$_basekernel.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   config.i686
   config.x86_64
@@ -45,7 +45,7 @@ build() {
   cd "$srcdir/linux-$_basekernel"
 
   # add upstream patch
-  patch -p1 -i "$srcdir/patch-$pkgver"
+  patch -p1 -i "$srcdir/patch-$_basekernel"
 
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
