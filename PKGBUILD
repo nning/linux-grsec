@@ -7,10 +7,10 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.6
+_basekernel=3.7
 _grsecver=2.9.1
-_timestamp=201212101818
-pkgver=${_basekernel}.10
+_timestamp=201212161206
+pkgver=${_basekernel}.0
 pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
@@ -22,7 +22,7 @@ _menuconfig=0
 
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
+  http://www.kernel.org/pub/linux/kernel/v3.x/patch-${_basekernel}.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   config.i686
   config.x86_64
@@ -31,9 +31,9 @@ source=(
   change-default-console-loglevel.patch
 )
 sha256sums=(
-  4ab9a6ef1c1735713f9f659d67f92efa7c1dfbffb2a2ad544005b30f9791784f
-  99ad56f28f718d3718b8a53cd6bbb0edfdca434f96c5590db073d0edc34c0067
-  bb8cdc810f4b06f912220c9c22dd534e5a6a329e337e3d7c5c9a8e0da3fe3ace
+  60a64d0bf76eeec3355f115c577935757b84629c8c129ce5b8bb02075f6b9458
+  02ee29fc0f53ab3a402cbb3512cfd7c9c7c8e405ffce3e208b2fcfa788dfffe7
+  79b87bc47177239a236cb7816a6fa46c449b894db2c9482442559b03c4738441
   1bb114567f9914ec9b3d6f7433217e3e17d990dce70a30a2ace6cca540d696d8
   9dade5dfd3e9ed0607629cc6670fdcbfb9a79a446b88bcd3b21b63e724483439
   882bbadbb0d6694f31930d9208564bfd61a19767069c2ac9ca3f543cad3d5149
@@ -180,7 +180,7 @@ package_linux-grsec-headers() {
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/include"
 
   for i in acpi asm-generic config crypto drm generated linux math-emu \
-    media mtd net pcmcia scsi sound trace video xen; do
+    media net pcmcia scsi sound trace uapi video xen; do
     cp -a include/${i} "${pkgdir}/usr/src/linux-${_kernver}/include/"
   done
 
@@ -207,13 +207,22 @@ package_linux-grsec-headers() {
   cp arch/${KARCH}/kernel/asm-offsets.s "${pkgdir}/usr/src/linux-${_kernver}/arch/${KARCH}/kernel/"
 
   # add headers for lirc package
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video"
-
-  cp drivers/media/video/*.h  "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/"
-
-  for i in bt8xx cpia2 cx25840 cx88 em28xx pwc saa7134 sn9c102; do
-    mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/${i}"
-    cp -a drivers/media/video/${i}/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/${i}"
+  # pci
+  for i in bt8xx cx88 saa7134; do
+    mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/pci/${i}"
+    cp -a drivers/media/pci/${i}/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/pci/${i}"
+  done
+  # usb
+  for i in cpia2 em28xx pwc sn9c102; do
+    mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/usb/${i}"
+    cp -a drivers/media/usb/${i}/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/usb/${i}"
+  done
+  # i2c
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/i2c"
+  cp drivers/media/i2c/*.h  "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/i2c/"
+  for i in cx25840; do
+    mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/i2c/${i}"
+    cp -a drivers/media/i2c/${i}/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/i2c/${i}"
   done
 
   # add docbook makefile
@@ -235,8 +244,8 @@ package_linux-grsec-headers() {
   # add dvb headers for external modules
   # in reference to:
   # http://bugs.archlinux.org/task/9912
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core"
-  cp drivers/media/dvb/dvb-core/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/"
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-core"
+  cp drivers/media/dvb-core/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-core/"
   # and...
   # http://bugs.archlinux.org/task/11194
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/"
@@ -245,19 +254,19 @@ package_linux-grsec-headers() {
   # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
   # in reference to:
   # http://bugs.archlinux.org/task/13146
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/"
-  cp drivers/media/dvb/frontends/lgdt330x.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/"
-  cp drivers/media/video/msp3400-driver.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/"
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-frontends/"
+  cp drivers/media/dvb-frontends/lgdt330x.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-frontends/"
+  cp drivers/media/i2c/msp3400-driver.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/i2c/"
 
   # add dvb headers
   # in reference to:
   # http://bugs.archlinux.org/task/20402
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-usb"
-  cp drivers/media/dvb/dvb-usb/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-usb/"
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends"
-  cp drivers/media/dvb/frontends/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/"
-  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/common/tuners"
-  cp drivers/media/common/tuners/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/common/tuners/"
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/usb/dvb-usb"
+  cp drivers/media/usb/dvb-usb/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/usb/dvb-usb/"
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-frontends"
+  cp drivers/media/dvb-frontends/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb-frontends/"
+  mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/tuners"
+  cp drivers/media/tuners/*.h "${pkgdir}/usr/src/linux-${_kernver}/drivers/media/tuners/"
 
   # add xfs and shmem for aufs building
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/fs/xfs"
