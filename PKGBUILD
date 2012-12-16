@@ -22,7 +22,7 @@ _menuconfig=0
 
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  http://www.kernel.org/pub/linux/kernel/v3.x/patch-$_basekernel.xz
+  #http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   config.i686
   config.x86_64
@@ -32,10 +32,9 @@ source=(
 )
 sha256sums=(
   60a64d0bf76eeec3355f115c577935757b84629c8c129ce5b8bb02075f6b9458
-  02ee29fc0f53ab3a402cbb3512cfd7c9c7c8e405ffce3e208b2fcfa788dfffe7
   79b87bc47177239a236cb7816a6fa46c449b894db2c9482442559b03c4738441
   1bb114567f9914ec9b3d6f7433217e3e17d990dce70a30a2ace6cca540d696d8
-  9dade5dfd3e9ed0607629cc6670fdcbfb9a79a446b88bcd3b21b63e724483439
+  fd4e6c8a59f68800243d2f1d69bf1da546ee186e323791e4a643f71a5d285b7a
   882bbadbb0d6694f31930d9208564bfd61a19767069c2ac9ca3f543cad3d5149
   ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d
   b9d79ca33b0b51ff4f6976b7cd6dbb0b624ebf4fbf440222217f8ffc50445de4
@@ -45,7 +44,7 @@ build() {
   cd "$srcdir/linux-$_basekernel"
 
   # add upstream patch
-  patch -p1 -i "$srcdir/patch-$_basekernel"
+  #patch -p1 -i "$srcdir/patch-$pkgver"
 
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
