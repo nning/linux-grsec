@@ -7,11 +7,11 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.7
+_basekernel=3.8
 _grsecver=2.9.1
-_timestamp=201302202034
-pkgver=${_basekernel}.9
-pkgrel=2
+_timestamp=201302222047
+pkgver=${_basekernel}.0
+pkgrel=1
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -22,7 +22,7 @@ _menuconfig=0
 
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
+  #http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   config.i686
   config.x86_64
@@ -31,11 +31,10 @@ source=(
   change-default-console-loglevel.patch
 )
 sha256sums=(
-  60a64d0bf76eeec3355f115c577935757b84629c8c129ce5b8bb02075f6b9458
-  9f10f53c3cf6dbb4378a3799750b4d0a818f8f5ac112372498d533f4e475cea6
-  4c52ede2ec9792cc09e808857afb5e8b3f78b2caadbe1558329e1d8c1509f61c
+  e070d1bdfbded5676a4f374721c63565f1c969466c5a3e214004a136b583184b
+  bac374cee44252e023cf73d502f36dce6fe2f3d95c366ff9ca92a43d6587275f
   651c962bafcff62ec17931b117145149566cd5ef39a7c30bbeb4824563a82b00
-  3ca6f2e803bb7f42cf2450054df44d5c2645676cae8258260b82b148f5e2987a
+  b03a285c908dbb0519a3fed02947441c5b579c15022826ebe1e8bf3f2c8c0ffc
   1dfc0de8d812a92847ebc3fc69f7633cc81410c6942ab5d15489ce6038b0c87f
   ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d
   b9d79ca33b0b51ff4f6976b7cd6dbb0b624ebf4fbf440222217f8ffc50445de4
@@ -45,7 +44,8 @@ build() {
   cd "$srcdir/linux-$_basekernel"
 
   # add upstream patch
-  patch -p1 -i "$srcdir/patch-$pkgver"
+  [ -f "$srcdir/patch-$pkgver" ] &&
+    patch -p1 -i "$srcdir/patch-$pkgver"
 
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
