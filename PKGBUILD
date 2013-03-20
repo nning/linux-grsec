@@ -18,7 +18,7 @@ license=(GPL2)
 options=(!strip)
 
 _menuconfig=0
-[ ! -z $MENUCONFIG ] && _menuconfig=1
+[ ! -z $MENUCONFIG ] && _menuconfig=$MENUCONFIG
 
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
@@ -66,7 +66,7 @@ build() {
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
-  [ "$_menuconfig" = "1" ] && {
+  [ "$_menuconfig" -gt "0" ] && {
     make menuconfig # CLI menu for configuration
     #make nconfig # new CLI menu for configuration
     #make xconfig # X-based configuration
