@@ -17,6 +17,9 @@ url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
 
+# The MENUCONFIG environment variable controls the invokation of the kernel
+# configuration (see line 71). 0 does not run menuconfig (default), 1 runs
+# menuconfig and exits, 2 runs menuconfig and builds the kernel.
 _menuconfig=0
 [ ! -z $MENUCONFIG ] && _menuconfig=$MENUCONFIG
 
@@ -64,7 +67,6 @@ build() {
     make prepare
   }
 
-  # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
   [ "$_menuconfig" -gt "0" ] && {
     make menuconfig # CLI menu for configuration
