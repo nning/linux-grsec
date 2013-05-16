@@ -17,6 +17,7 @@ arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
+makedepends=(bc)
 
 # The MENUCONFIG environment variable controls the invokation of the kernel
 # configuration (see line 71). 0 does not run menuconfig (default), 1 runs
