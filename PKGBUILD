@@ -12,7 +12,7 @@ _basekernel=3.9
 _grsecver=2.9.1
 _timestamp=201306182033
 pkgver=${_basekernel}.6
-pkgrel=2
+pkgrel=3
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -298,6 +298,6 @@ sha256sums=('60bc3e64ee5dc778de2cd7cd7640abf518a4c9d4f31b8ed624e16fad53f54541'
             'a9239636230171b304c4c64c754db978527d3df37a8accbc5b205bf010b60c9a'
             'fb4f884804ec1e18833fbe08ddb2c6bd2dbcbe5b8e9b6e55817884eeb5095539'
             '7b4bf74b3e76a24133451dc767848231916a4ad4de2b9181dc3a59a2160a92e1'
-            '1e7477e401c51a3607f435cbd98b0d64f9a6845ecb6957efd80c63112feecef4'
+            'e1788129f9fce8417bc90556b44f6e012cb627bdf82705770b33aa662a2fef04'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'b9d79ca33b0b51ff4f6976b7cd6dbb0b624ebf4fbf440222217f8ffc50445de4')
