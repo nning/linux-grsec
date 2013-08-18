@@ -3,7 +3,7 @@
 #   Thomas Baechler <thomas@archlinux.org>
 # Contributors:
 #   henning mueller <henning@orgizm.net>
-#   Thomas Dwyer <tdwyer@lavabit.com>
+#   Thomas Dwyer http://tomd.tel
 
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
