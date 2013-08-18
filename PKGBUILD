@@ -3,7 +3,7 @@
 #   Thomas Baechler <thomas@archlinux.org>
 # Contributors:
 #   henning mueller <henning@orgizm.net>
-#   Thomas Dwyer <tdwyer@lavabit.com>
+#   Thomas Dwyer http://tomd.tel
 
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
@@ -298,6 +298,6 @@ sha256sums=('df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
             '9424fb61b373fb3a84cdf0b82183ae4429158a8b582ef49a33af629557330e2a'
             '18cfe2956c79363b61d76acc5388cd892e81cc81b4b93e4f898682c598d1a8e1'
             '66d3f9fdb3aea018dba58672efc6730a05752884118728960450d7264ef3f1d6'
-            'e1788129f9fce8417bc90556b44f6e012cb627bdf82705770b33aa662a2fef04'
+            '10d4357845c1e1bf376aa7f9aa0b772279d63f4a675b8d44ad9df06557efd067'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'b9d79ca33b0b51ff4f6976b7cd6dbb0b624ebf4fbf440222217f8ffc50445de4')
