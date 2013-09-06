@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 3.10.10-1 Kernel Configuration
+# Linux/x86 3.10.10-4 Kernel Configuration
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -6236,6 +6236,7 @@ CONFIG_GRKERNSEC_SOCKET_SERVER_GID=9997
 # Physical Protections
 #
 CONFIG_GRKERNSEC_DENYUSB=y
+# CONFIG_GRKERNSEC_DENYUSB_FORCE is not set
 
 #
 # Sysctl Support
