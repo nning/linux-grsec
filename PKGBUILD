@@ -12,7 +12,7 @@ _basekernel=3.11
 _grsecver=2.9.1
 _timestamp=201309151124
 pkgver=${_basekernel}.1
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -46,7 +46,7 @@ build() {
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
-  patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
+  #patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
 
   # Add grsecurity patches
   patch -Np1 -i $srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
