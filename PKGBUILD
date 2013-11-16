@@ -52,11 +52,11 @@ build() {
   # add intel haswell support to intel_pstate
   # https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/patch/?id=6cdcdb793791f776ea9408581b1242b636d43b37
   # will be in 3.12
-# patch -Np1 -i "$srcdir/3.11-haswell-intel_pstate.patch"
+  patch -Np1 -i "$srcdir/3.11-haswell-intel_pstate.patch"
  
   # allow criu without expert option set
   # patch from fedora
-  patch -Np1 -i "$srcdir/criu-no-expert.patch"
+# patch -Np1 -i "$srcdir/criu-no-expert.patch"
 
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
