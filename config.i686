@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 3.11.8-2 Kernel Configuration
+# Linux/x86 3.11.9-5 Kernel Configuration
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -6308,6 +6308,7 @@ CONFIG_GRKERNSEC_DENYUSB=y
 # Sysctl Support
 #
 CONFIG_GRKERNSEC_SYSCTL=y
+# CONFIG_GRKERNSEC_SYSCTL_DISTRO is not set
 CONFIG_GRKERNSEC_SYSCTL_ON=y
 
 #
