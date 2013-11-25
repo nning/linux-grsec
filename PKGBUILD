@@ -12,7 +12,7 @@ _basekernel=3.11
 _grsecver=3.0
 _timestamp=201311242034
 pkgver=${_basekernel}.9
-pkgrel=3
+pkgrel=4
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -29,6 +29,7 @@ source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
+  usermodehelper-systemd.patch
   3.11-haswell-intel_pstate.patch
   criu-no-expert.patch
   config.i686
@@ -58,12 +59,12 @@ build() {
   # patch from fedora
 # patch -Np1 -i "$srcdir/criu-no-expert.patch"
 
-  # Change check on binary inside /sbin to /usr/sbin.
-  sed -i 's:/sbin:/usr/sbin:g' "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
-
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
   rm localversion-grsec
+
+  # Allow usermode helpers to be also executed from /usr/lib/systemd
+  patch -Np1 -i "$srcdir/usermodehelper-systemd.patch"
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
@@ -309,6 +310,7 @@ package_linux-grsec-headers() {
 sha256sums=('803ec8f0ad4b2ddedcb0332a590cd2b5e10dfc57c3b1c95bc9c46af81d51d7f9'
             '3aa7221174671d4153fda3394076d5e85a662d8df4ec98351f72112bff810a74'
             'd11d09eded8c6ace7d9b6b216947b202c9c10505da448c86cb72f5d3b1bbf3b2'
+            '946b307a500ef86362a31893c09df27bac3dcc3ab35cc8388979a07aaaf3361e'
             'c29f41b754494b09e97b6f4bbdd467771bc481f840fdf0d3f5605ad585a6857b'
             'daa75228a4c45a925cc5dbfeba884aa696a973a26af7695adc198c396474cbd5'
             '8b90cc807729dae39d1bc7c90d6ac160ee7835dac1bb6efa1539d8e4145ddd95'
