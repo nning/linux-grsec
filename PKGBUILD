@@ -12,7 +12,7 @@ _basekernel=3.11
 _grsecver=3.0
 _timestamp=201311242034
 pkgver=${_basekernel}.9
-pkgrel=2
+pkgrel=3
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -57,6 +57,9 @@ build() {
   # allow criu without expert option set
   # patch from fedora
 # patch -Np1 -i "$srcdir/criu-no-expert.patch"
+
+  # Change check on binary inside /sbin to /usr/sbin.
+  sed -i 's:/sbin:/usr/sbin:g' "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
