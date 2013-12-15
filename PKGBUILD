@@ -12,12 +12,13 @@ _basekernel=3.12
 _grsecver=3.0
 _timestamp=201312132204
 pkgver=${_basekernel}.5
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
 makedepends=(bc)
+backup=(etc/sysctl.d/05-grsecurity.conf)
 
 # The MENUCONFIG environment variable controls the invokation of the kernel
 # configuration (see line 71). 0 does not run menuconfig (default), 1 runs
@@ -33,6 +34,7 @@ source=(
   config.x86_64
   $pkgname.install
   $pkgname.preset
+  sysctl.conf
 )
 
 build() {
@@ -150,6 +152,9 @@ package_linux-grsec() {
 
   # move module tree /lib -> /usr/lib
   mv "$pkgdir/lib" "$pkgdir/usr"
+
+  # Copy sysctl configuration
+  install -Dm600 "$srcdir/sysctl.conf" "$pkgdir/etc/sysctl.d/05-grsecurity.conf"
 }
 
 package_linux-grsec-headers() {
@@ -295,7 +300,8 @@ package_linux-grsec-headers() {
 sha256sums=('2e120ec7fde19fa51dc6b6cc11c81860a0775defcad5a5bf910ed9a50e845a02'
             'bfb519ae2a3662340cb20b5f9433f9b3b8598e612286274f96ec8c8bf6bc09c4'
             '180946149d25b3d6c2c6d77cee58c1b05d8c9d45a5c071725ac90841abec51a0'
-            '17441e2ea0200e179ec41832efc222bea89f38fec35475fd3c14c9cf5a5a803a'
-            '4faa3997d39dcbe8530f88025e2eeea656e30e7f981b67d6d476a9c0d8902df0'
-            '10d4357845c1e1bf376aa7f9aa0b772279d63f4a675b8d44ad9df06557efd067'
-            'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d')
+            '3f48a4621af848b5b51bce7bb0cd39a0d5fe439a1c00b93c38b02d90e5c8a225'
+            'c4e04d8ea104565a4eb8cbbdb49c982c63291c99207bc6abdce5bd315fb0f836'
+            '3618b28ebc60e79d7168ccccb568628366764f1c608958b9e3e39fb473b01f4d'
+            'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
+            '950629824398ac5e80eaf09b03b3347a5d82ed83c6752aac89eaeaabb7772260')
