@@ -1,9 +1,17 @@
 # Original kernel maintainers:
 #   Tobias Powalowski <tpowa@archlinux.org>
 #   Thomas Baechler <thomas@archlinux.org>
+#
 # Contributors:
 #   henning mueller <henning@orgizm.net>
 #   Thomas Dwyer http://tomd.tel
+#
+# Find this package in the AUR:
+#   https://aur.archlinux.org/packages/linux-grsec
+#
+# Please report bugs and feature requests on GitHub:
+#   https://github.com/nning/linux-grsec
+#
 
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
