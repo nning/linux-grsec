@@ -20,16 +20,12 @@ _basekernel=3.12
 _grsecver=3.0
 _timestamp=201312151212
 pkgver=${_basekernel}.5
-pkgrel=3
+pkgrel=4
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
 makedepends=(bc)
-backup=(
-  etc/modprobe.d/dma.conf
-  etc/sysctl.d/05-grsecurity.conf
-)
 
 # The MENUCONFIG environment variable controls the invokation of the kernel
 # configuration (see line 71). 0 does not run menuconfig (default), 1 runs
@@ -114,7 +110,11 @@ package_linux-grsec() {
   provides=('kernel26-grsec')
   conflicts=('kernel26-grsec')
   replaces=('kernel26-grsec')
-  backup=("etc/mkinitcpio.d/${pkgname}.preset")
+  backup=(
+    etc/mkinitcpio.d/$pkgname.preset
+    etc/modprobe.d/dma.conf
+    etc/sysctl.d/05-grsecurity.conf
+  )
   install=${pkgname}.install
 
   cd "$srcdir/linux-$_basekernel"
