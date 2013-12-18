@@ -26,7 +26,10 @@ url="http://www.kernel.org/"
 license=(GPL2)
 options=(!strip)
 makedepends=(bc)
-backup=(etc/sysctl.d/05-grsecurity.conf)
+backup=(
+  etc/modprobe.d/dma.conf
+  etc/sysctl.d/05-grsecurity.conf
+)
 
 # The MENUCONFIG environment variable controls the invokation of the kernel
 # configuration (see line 71). 0 does not run menuconfig (default), 1 runs
@@ -43,6 +46,7 @@ source=(
   $pkgname.install
   $pkgname.preset
   sysctl.conf
+  module-blacklist.conf
 )
 
 build() {
@@ -163,6 +167,9 @@ package_linux-grsec() {
 
   # Copy sysctl configuration
   install -Dm600 "$srcdir/sysctl.conf" "$pkgdir/etc/sysctl.d/05-grsecurity.conf"
+
+  # Copy kernel module blacklist
+  install -Dm600 "$srcdir/module-blacklist.conf" "$pkgdir/etc/modprobe.d/dma.conf"
 }
 
 package_linux-grsec-headers() {
@@ -308,8 +315,9 @@ package_linux-grsec-headers() {
 sha256sums=('2e120ec7fde19fa51dc6b6cc11c81860a0775defcad5a5bf910ed9a50e845a02'
             'bfb519ae2a3662340cb20b5f9433f9b3b8598e612286274f96ec8c8bf6bc09c4'
             '0fa7f629dea0eb02019f730f1bf216d5c70851de740d57dab74c23eb88749c68'
-            '3f48a4621af848b5b51bce7bb0cd39a0d5fe439a1c00b93c38b02d90e5c8a225'
-            'c4e04d8ea104565a4eb8cbbdb49c982c63291c99207bc6abdce5bd315fb0f836'
+            '08f79b081a703ed82f0c5e34a19f5af528b6b308978e5f7cfc65f10ff5a0ca3b'
+            'f36f07b5c2bbd80624db891a8c172842569bf329d385428d75bce33cb84cba22'
             '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
-            '21aaf9a2ad5e6c329620f2a61884f33847f69663039a698067d79ca84f1d118d')
+            '21aaf9a2ad5e6c329620f2a61884f33847f69663039a698067d79ca84f1d118d'
+            '50e9e4ce335bae3787aa6b28c535d32035d39803387d17b67a05dc0589606c8f')
