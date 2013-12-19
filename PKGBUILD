@@ -20,7 +20,7 @@ _basekernel=3.12
 _grsecver=3.0
 _timestamp=201312151212
 pkgver=${_basekernel}.5
-pkgrel=4
+pkgrel=5
 arch=(i686 x86_64)
 url="http://www.kernel.org/"
 license=(GPL2)
@@ -37,6 +37,7 @@ source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
   http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
+  known-exploit-detection.patch
   config.i686
   config.x86_64
   $pkgname.install
@@ -56,6 +57,10 @@ build() {
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   sed -i 's/DEFAULT_CONSOLE_LOGLEVEL 7/DEFAULT_CONSOLE_LOGLEVEL 4/' kernel/printk/printk.c
+
+  # Add known exploit detection patch
+  # http://lkml.org/lkml/2013/12/12/358
+  patch -Np1 -i "$srcdir/known-exploit-detection.patch"
 
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
@@ -315,8 +320,9 @@ package_linux-grsec-headers() {
 sha256sums=('2e120ec7fde19fa51dc6b6cc11c81860a0775defcad5a5bf910ed9a50e845a02'
             'bfb519ae2a3662340cb20b5f9433f9b3b8598e612286274f96ec8c8bf6bc09c4'
             '0fa7f629dea0eb02019f730f1bf216d5c70851de740d57dab74c23eb88749c68'
-            '08f79b081a703ed82f0c5e34a19f5af528b6b308978e5f7cfc65f10ff5a0ca3b'
-            'f36f07b5c2bbd80624db891a8c172842569bf329d385428d75bce33cb84cba22'
+            'af6927f770f3c4c190111b05c1b97265ef8f245defeb25b59d5a731132524fbd'
+            '7a728dd9e2f01c89e4fe3d6574178708da0f2e1b3389d1c7e1057ea57592d4f7'
+            '7f5f4b289c2c4a5b64ead61dc31544840114774ac8d0c838c2b167a92713f93c'
             '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             '21aaf9a2ad5e6c329620f2a61884f33847f69663039a698067d79ca84f1d118d'
