@@ -18,9 +18,9 @@ true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=3.12
 _grsecver=3.0
-_timestamp=201312151212
-pkgver=${_basekernel}.5
-pkgrel=7
+_timestamp=201312221037
+pkgver=${_basekernel}.6
+pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -33,11 +33,10 @@ makedepends=(bc)
 _menuconfig=0
 [ ! -z $MENUCONFIG ] && _menuconfig=$MENUCONFIG
 
-# http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
-  grsecurity-$_grsecver-$pkgver-$_timestamp.patch.xz
+  http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
   known-exploit-detection.patch
   config.i686
   config.x86_64
@@ -319,8 +318,8 @@ package_linux-grsec-headers() {
 }
 
 sha256sums=('2e120ec7fde19fa51dc6b6cc11c81860a0775defcad5a5bf910ed9a50e845a02'
-            'bfb519ae2a3662340cb20b5f9433f9b3b8598e612286274f96ec8c8bf6bc09c4'
-            '9a3ba44f2ae2e8708c7d33ee466836698eade8a2e192ba5bf0e95fa0a2573fdb'
+            'd3f0fab91fa4f25b685ae087030252feedb0169061c2f486cdf38b399e4baf7a'
+            '3db8444dda3eb2b6d41abd8f6d280303bbe2c57f3508b2537e2d3fe24aa7346a'
             'af6927f770f3c4c190111b05c1b97265ef8f245defeb25b59d5a731132524fbd'
             '7a728dd9e2f01c89e4fe3d6574178708da0f2e1b3389d1c7e1057ea57592d4f7'
             '7f5f4b289c2c4a5b64ead61dc31544840114774ac8d0c838c2b167a92713f93c'
