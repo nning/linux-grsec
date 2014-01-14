@@ -33,10 +33,12 @@ makedepends=(bc)
 _menuconfig=0
 [ ! -z $MENUCONFIG ] && _menuconfig=$MENUCONFIG
 
+_grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
+
 source=(
   http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
-  http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_timestamp.patch
+  http://grsecurity.net/test/$_grsec_patch
   known-exploit-detection.patch
   config.i686
   config.x86_64
@@ -63,7 +65,7 @@ build() {
   patch -Np1 -i "$srcdir/known-exploit-detection.patch"
 
   # Add grsecurity patches
-  patch -Np1 -i "$srcdir/grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
+  patch -Np1 -i "$srcdir/$_grsec_patch"
   rm localversion-grsec
 
   cat "${srcdir}/config.${CARCH}" > ./.config
@@ -175,6 +177,10 @@ package_linux-grsec() {
 
   # Copy kernel module blacklist
   install -Dm600 "$srcdir/module-blacklist.conf" "$pkgdir/etc/modprobe.d/dma.conf"
+
+  # Copy current grsec patch
+  install -Dm644 "$srcdir/$_grsec_patch" \
+    "$pkgdir/usr/share/doc/$pkgname/$_grsec_patch"
 }
 
 package_linux-grsec-headers() {
