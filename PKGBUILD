@@ -27,6 +27,8 @@ license=(GPL2)
 options=(!strip)
 makedepends=(bc)
 
+[ "$1" = '-v' ] && echo $pkgver $_timestamp
+
 # The MENUCONFIG environment variable controls the invokation of the kernel
 # configuration (see line 71). 0 does not run menuconfig (default), 1 runs
 # menuconfig and exits, 2 runs menuconfig and builds the kernel.
