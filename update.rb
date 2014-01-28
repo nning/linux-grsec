@@ -17,7 +17,7 @@ class Pkgbuild
   end
 
   def major
-    @major ||= version.split('.')[0..1].join('.')
+    version.segments[0..1].join('.')
   end
 
   def update!(patch)
@@ -25,15 +25,15 @@ class Pkgbuild
 
     c.each_with_index do |line, i|
       if line =~ /^_basekernel=/
-        c[i] = "_basekernel=#{major}\n"
+        c[i] = "_basekernel=#{patch.major}\n"
       end
 
       if line =~ /^pkgver=/
-        c[i] = "pkgver=${_basekernel}.#{version.split('.').last}\n"
+        c[i] = "pkgver=${_basekernel}.#{patch.version.segments.last}\n"
       end
 
       if line =~ /^_timestamp=/
-        c[i] = "_timestamp=#{timestamp}\n"
+        c[i] = "_timestamp=#{patch.timestamp}\n"
       end
 
       if line =~ /^pkgrel=/
@@ -49,7 +49,7 @@ class Pkgbuild
 
   def versions
     v, t = `bash PKGBUILD -v`.split ' '
-    [v, t.to_i]
+    [Gem::Version.new(v), t.to_i]
   end
 end
 
@@ -73,6 +73,10 @@ class Patch
     @filename
   end
 
+  def major
+    version.segments[0..1].join('.')
+  end
+
   private
 
   def newest(patches)
@@ -89,7 +93,7 @@ class Patch
   def versions
     v, t = filename.split('-')[2..3]
     t = t.split('.').first
-    [v, t.to_i]
+    [Gem::Version.new(v), t.to_i]
   end
 end
 
@@ -98,7 +102,7 @@ patch = Patch.new
 
 if pkgbuild.timestamp < patch.timestamp
   pkgbuild.update! patch
-  puts `git diff`
+  puts `git diff PKGBUILD`
 else
   puts 'PKGBUILD is up-to-date.'
 end
