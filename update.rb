@@ -37,7 +37,8 @@ class Pkgbuild
       end
 
       if line =~ /^pkgrel=/
-        new = line.split('=').last.to_i + 1
+        new = 1
+        new = line.split('=').last.to_i + 1 if version == patch.version
         c[i] = "pkgrel=#{new}\n"
       end
     end
