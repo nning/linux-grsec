@@ -64,7 +64,7 @@ build() {
 
   # Add known exploit detection patch
   # http://lkml.org/lkml/2013/12/12/358
-  patch -Np1 -i "$srcdir/known-exploit-detection.patch"
+# patch -Np1 -i "$srcdir/known-exploit-detection.patch"
 
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/$_grsec_patch"
@@ -329,8 +329,8 @@ sha256sums=('4d5e5eee5f276424c32e9591f1b6c971baedc7b49f28ce03d1f48b1e5d6226a2'
             '6d54f1dcd4d9441644a7ef4445f6633158e666fddaa6f06bb6656ab2ff4509d4'
             'd3e236f1bfd1332783dd0349d4d80c5e0fd65ed9021e9c9c60a4cc7ee68e6f90'
             'af6927f770f3c4c190111b05c1b97265ef8f245defeb25b59d5a731132524fbd'
-            'ba7a5df1990fc82051512319019c182e1af0ba0813d0ba682c8140c1be23c21f'
-            'fb124f8141605d5bdafca521900fe2f26d4472c561de6dc621a63afde366884f'
+            'ba4eeaa2ac1d263ec4ae2c4274ce81e3a79a98055eb63609dd106e1cc66aaccc'
+            '14aa11166d18651ed7a376022b2f701bf1a9589fb91c1e53c0d4e909b37d998d'
             '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'f1a770e2a769f07f2fbb63d18bd0f2bb319d080149643b97503ec39c5df1b90d'
