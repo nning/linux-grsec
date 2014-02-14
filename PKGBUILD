@@ -62,13 +62,13 @@ build() {
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   sed -i 's/DEFAULT_CONSOLE_LOGLEVEL 7/DEFAULT_CONSOLE_LOGLEVEL 4/' kernel/printk/printk.c
 
-  # Add known exploit detection patch
-  # http://lkml.org/lkml/2013/12/12/358
-# patch -Np1 -i "$srcdir/known-exploit-detection.patch"
-
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/$_grsec_patch"
   rm localversion-grsec
+
+  # Add known exploit detection patch
+  # http://lkml.org/lkml/2013/12/12/358
+  patch -Np1 -i "$srcdir/known-exploit-detection.patch"
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
@@ -328,7 +328,7 @@ package_linux-grsec-headers() {
 sha256sums=('4d5e5eee5f276424c32e9591f1b6c971baedc7b49f28ce03d1f48b1e5d6226a2'
             '6d54f1dcd4d9441644a7ef4445f6633158e666fddaa6f06bb6656ab2ff4509d4'
             'd3e236f1bfd1332783dd0349d4d80c5e0fd65ed9021e9c9c60a4cc7ee68e6f90'
-            'af6927f770f3c4c190111b05c1b97265ef8f245defeb25b59d5a731132524fbd'
+            'a1675f0befa71f49fa5f17bedc83625a4105d7bc437e567662ad3d2b4c0f37de'
             'ba4eeaa2ac1d263ec4ae2c4274ce81e3a79a98055eb63609dd106e1cc66aaccc'
             '14aa11166d18651ed7a376022b2f701bf1a9589fb91c1e53c0d4e909b37d998d'
             '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
