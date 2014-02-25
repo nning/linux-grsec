@@ -2,6 +2,7 @@
 
 require 'getoptlong'
 require 'open-uri'
+require 'open3'
 
 begin
   require 'nokogiri'
@@ -49,12 +50,14 @@ class Pkgbuild
       end
     end
 
+    write c.join
+
     if @hash
-      hashes = `makepkg -g 2>/dev/null`
-      c << hashes
+      o, e, s = Open3.capture3 'makepkg -g'
+      c << o if s.success?
     end
 
-    File.open('PKGBUILD', 'w').write c.join
+    write c.join
   end
 
   private
@@ -62,6 +65,10 @@ class Pkgbuild
   def versions
     v, t = `bash PKGBUILD -v`.split ' '
     [Gem::Version.new(v), t.to_i]
+  end
+
+  def write(contents)
+    File.open('PKGBUILD', 'w').write contents
   end
 end
 
