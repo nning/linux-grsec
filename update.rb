@@ -120,23 +120,23 @@ def usage_message
   $stderr << "#{File.basename $0} [options]
 Update version and patch in linux-grsec PKGBUILD.
 
-  -g  Generate new hashes and append them to PKGBUILD.
+  -G  Generate new hashes and append them to PKGBUILD.
   -h  This help.
 
 "
   exit 1
 end
 
-hash = false
+hash = true
 
 options = GetoptLong.new \
-  [ '-g', GetoptLong::NO_ARGUMENT ],
+  [ '-G', GetoptLong::NO_ARGUMENT ],
   [ '-h', GetoptLong::NO_ARGUMENT ]
 
 options.each do |option, argument|
   case option
-  when '-g'
-    hash = true
+  when '-G'
+    hash = false
   when '-h'
     usage_message
   end
