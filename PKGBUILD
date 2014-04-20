@@ -16,11 +16,11 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.13
+_basekernel=3.14
 _grsecver=3.0
-_timestamp=201404182111
-pkgver=${_basekernel}.10
-pkgrel=3
+_timestamp=201404192355
+pkgver=${_basekernel}.1
+pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -325,12 +325,12 @@ package_linux-grsec-headers() {
   rm -rf "${pkgdir}"/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,xtensa}
 }
 
-sha256sums=('4d5e5eee5f276424c32e9591f1b6c971baedc7b49f28ce03d1f48b1e5d6226a2'
-            'c323d141f02b349ac5b37c744e0689c98dc698be81c7c974b182983b8073b03d'
-            '03422a0832c338430140b68d542d6eb8afa4f999c97969ccca420a72780eef98'
+sha256sums=('61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
+            'ac56f0bff3c6ec436161f2702c7269b933e22bae0488ed709ab29e4aeb78be45'
+            'b14ad6562e92d1b6a31608802e32f640d4fc9aace15c21ba13cabee442af3f84'
             'a1675f0befa71f49fa5f17bedc83625a4105d7bc437e567662ad3d2b4c0f37de'
-            'ba4eeaa2ac1d263ec4ae2c4274ce81e3a79a98055eb63609dd106e1cc66aaccc'
-            '14aa11166d18651ed7a376022b2f701bf1a9589fb91c1e53c0d4e909b37d998d'
+            '6b635849f0fe19016494036c8bc7d1bb17623909a0ca7aa2a88e374158b2d429'
+            'f8b4e9547e93b613f0f6e86aac730ea1831a45c28a3e18ca72ed988d59906c2e'
             '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'f1a770e2a769f07f2fbb63d18bd0f2bb319d080149643b97503ec39c5df1b90d'
