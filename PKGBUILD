@@ -20,7 +20,7 @@ _basekernel=3.14
 _grsecver=3.0
 _timestamp=201404201132
 pkgver=${_basekernel}.1
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -30,7 +30,7 @@ makedepends=(bc)
 [ "$1" = '-v' ] && echo $pkgver $_timestamp
 
 # The MENUCONFIG environment variable controls the invokation of the kernel
-# configuration (see line 71). 0 does not run menuconfig (default), 1 runs
+# configuration (see line 91). 0 does not run menuconfig (default), 1 runs
 # menuconfig and exits, 2 runs menuconfig and builds the kernel.
 _menuconfig=0
 [ ! -z $MENUCONFIG ] && _menuconfig=$MENUCONFIG
@@ -309,9 +309,9 @@ sha256sums=('61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
             'ac56f0bff3c6ec436161f2702c7269b933e22bae0488ed709ab29e4aeb78be45'
             '37a9278f943b08fb533e0be63960c20ce372bc86cdd36f9944893e4350d8cdf7'
             'a1675f0befa71f49fa5f17bedc83625a4105d7bc437e567662ad3d2b4c0f37de'
-            '6b635849f0fe19016494036c8bc7d1bb17623909a0ca7aa2a88e374158b2d429'
-            'f8b4e9547e93b613f0f6e86aac730ea1831a45c28a3e18ca72ed988d59906c2e'
-            '305542cb76d1487dc97015316a8a867900b3640c16ab9c8798f39233259b329d'
+            'daa291628f6eb4c049a694f43547487773d791bda6c4ba69ae13e5c8783d283d'
+            'f5539c9855615a6fc4cc13fdef16b8d2ac3a4543e1ca2e9a65af9db5a9988dd2'
+            '94861b173ad39c68ed596d98b7386fdeff5b20a305420ed6d4c70e91f5ce740a'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
-            'f1a770e2a769f07f2fbb63d18bd0f2bb319d080149643b97503ec39c5df1b90d'
+            '148065d2d0e6235d2a36eff725c2fa5e27817da1bce01003b17f3ced152f9c0a'
             '50e9e4ce335bae3787aa6b28c535d32035d39803387d17b67a05dc0589606c8f')

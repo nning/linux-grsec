@@ -17,7 +17,7 @@ Configure (with menuconfig) and exit afterwards:
     MENUCONFIG=1 makepkg
 
 The configuration will be in `src/linux-3.*/.config`. In the PKGBUILDs build
-function (line 81 ff.), the configuration interface is changeable.
+function (line 91 ff.), the configuration interface is changeable.
 
 To configure and build the kernel afterwards:
 
@@ -34,13 +34,14 @@ anymore.
 If you do not use KMS graphics, you have to disable
 `kernel.grsecurity.disable_priv_io`.
 
-There are five groups, which control grsecurity functions:
+There are six groups, which control grsecurity functions:
 
-* proc-trusted
+* tpe
+* audit
 * socket-deny-all
 * socket-deny-client
 * socket-deny-server 
-* tpe-trusted
+* proc-trusted
 
 
 [0]: https://aur.archlinux.org/packages/linux-grsec
