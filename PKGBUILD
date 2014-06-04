@@ -38,9 +38,9 @@ _menuconfig=0
 _grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 
 source=(
-  http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  http://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
-  http://grsecurity.net/test/$_grsec_patch
+  https://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
+  https://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
+  https://grsecurity.net/test/$_grsec_patch
   known-exploit-detection.patch
   config.i686
   config.x86_64
