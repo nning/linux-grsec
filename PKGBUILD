@@ -20,12 +20,13 @@ _basekernel=3.14
 _grsecver=3.0
 _timestamp=201406191347
 pkgver=${_basekernel}.8
-pkgrel=2
+pkgrel=3
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
 options=(!strip)
 makedepends=(bc)
+conflicts=(linux-grsec-lts)
 
 [ "$1" = '-v' ] && echo $pkgver $_timestamp
 
