@@ -16,11 +16,11 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.14
+_basekernel=3.15
 _grsecver=3.0
-_timestamp=201406191347
-pkgver=${_basekernel}.8
-pkgrel=2
+_timestamp=201406222112
+pkgver=${_basekernel}.1
+pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -41,7 +41,6 @@ source=(
   https://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   https://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
   https://grsecurity.net/test/$_grsec_patch
-  known-exploit-detection.patch
   config.i686
   config.x86_64
   $pkgname.install
@@ -65,10 +64,6 @@ build() {
   # Add grsecurity patches
   patch -Np1 -i "$srcdir/$_grsec_patch"
   rm localversion-grsec
-
-  # Add known exploit detection patch
-  # http://lkml.org/lkml/2013/12/12/358
-  patch -Np1 -i "$srcdir/known-exploit-detection.patch"
 
   cat "${srcdir}/config.${CARCH}" > ./.config
 
@@ -305,12 +300,11 @@ package_linux-grsec-headers() {
   rm -rf "${pkgdir}"/usr/lib/modules/${_kernver}/build/arch/{alpha,arc,arm,arm26,arm64,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,metag,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,xtensa}
 }
 
-sha256sums=('61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
-            '0edab0f772836162e5e57ef294d83e88153c15a12f394914c6a25b49e408e8f1'
-            'aa9d8c11e1c1790e71088ae0a6494b8e44b0734f8e5d4fdeb9b98e0c77427406'
-            'a1675f0befa71f49fa5f17bedc83625a4105d7bc437e567662ad3d2b4c0f37de'
+sha256sums=('c3927e87be4040fa8aca1b58663dc0776aaf00485604ff88a623be2f3fb07794'
+            '36590c1a522375cd1bf90bd013bf8b600e08680ac4e6c94926f4fa7c8f65328f'
+            '24835ddd8b524b11d1179697052a3d669efcaef56a254ba384c73ef77ebd4b13'
             'd73ebb24409fe9a5978231c442e98fd6d15d7a0360d0663b2159a158dd2d5047'
-            '56286330b0e3230fcf26f907f9bd5a1b2ff14faea1fe50f7b07035de0022a150'
+            '75206c7194cd948600426d8cf898fdcbd15c8207dbe3810737c250a8677454d0'
             '94861b173ad39c68ed596d98b7386fdeff5b20a305420ed6d4c70e91f5ce740a'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'bf66c7cfc6d7d00d66f6f0b451a67a70d62f9111a73275b8b6049dd219755da2'
