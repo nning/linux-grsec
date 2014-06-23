@@ -26,6 +26,7 @@ url='https://github.com/nning/linux-grsec'
 license=(GPL2)
 options=(!strip)
 makedepends=(bc)
+conflicts=(linux-grsec-lts)
 
 [ "$1" = '-v' ] && echo $pkgver $_timestamp
 
