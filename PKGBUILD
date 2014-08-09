@@ -20,7 +20,7 @@ _basekernel=3.15
 _grsecver=3.0
 _timestamp=201408040708
 pkgver=${_basekernel}.8
-pkgrel=5
+pkgrel=6
 arch=(i686 x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -306,8 +306,8 @@ sha256sums=('c3927e87be4040fa8aca1b58663dc0776aaf00485604ff88a623be2f3fb07794'
             'e25557b19dfebc91e42939aa9a62f7a4d4e36ea2cc659368cded51fb2c703456'
             'f85023b7d061365a08139743e68082e3f61b178173528a0d9e39c07ddeef0ad6'
             'SKIP'
-            '586b0f0c7bd8a3d7ffd3ebeeab5f706ed15a2d1528466d78c86697e7331479e5'
-            '75206c7194cd948600426d8cf898fdcbd15c8207dbe3810737c250a8677454d0'
+            '35bb8070e19cd2875f029b059ecfc278d4fc6799271a4d213ccbf2f3a16ff414'
+            '5bd58daf3688c8532dd7a4bb6f463ee90ef8345210596fa381fb5dd045c6bc0f'
             '94861b173ad39c68ed596d98b7386fdeff5b20a305420ed6d4c70e91f5ce740a'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             'bf66c7cfc6d7d00d66f6f0b451a67a70d62f9111a73275b8b6049dd219755da2'
