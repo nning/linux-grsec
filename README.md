@@ -1,3 +1,7 @@
+<div align="center">
+<img src="http://grsecurity.net/gfx/header_logo.png" alt="grsecurity logo"></img>
+</div>
+
 linux-grsec
 ===========
 
