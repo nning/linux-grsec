@@ -105,7 +105,7 @@ class Patch
   def select_version(patches, method)
     a = patches.sort.map { |x| x.split('-')[2] }
     a.select! { |x| x =~ /^[0-9]{1}\./ }
-    a.compact.map! { |x| Gem::Version.new x rescue nil }
+    a.map! { |x| Gem::Version.new x rescue nil }.compact!
     a.sort.send(method).to_s
   end
 
