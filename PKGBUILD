@@ -41,8 +41,7 @@ _grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 source=(
   https://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
   https://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
-  https://grsecurity.net/test/$_grsec_patch
-  https://grsecurity.net/test/$_grsec_patch.sig
+  https://grsecurity.net/test/$_grsec_patch{,.sig}
   config.i686
   config.x86_64
   $pkgname.install
@@ -50,6 +49,8 @@ source=(
   sysctl.conf
   module-blacklist.conf
 )
+
+validpgpkeys=('DE9452CE46F42094907F108B44D1C0F82525FE49')
 
 build() {
   cd "$srcdir/linux-$_basekernel"
