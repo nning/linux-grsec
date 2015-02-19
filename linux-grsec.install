@@ -4,14 +4,6 @@
 KERNEL_NAME=-grsec
 KERNEL_VERSION=
 
-_fix_permissions() {
-  /usr/bin/linux-pax-flags -y
-
-  echo
-  echo You can repeat this process after updating or installing affected
-  echo binaries by running "linux-pax-flags".
-}
-
 _add_tpe_group() {
   if getent group tpe-trusted >/dev/null; then
     groupmod -g 200 -n tpe tpe-trusted
@@ -98,8 +90,6 @@ post_install() {
   mkinitcpio -p linux${KERNEL_NAME}
 
   _add_groups
-  _fix_permissions
-  
   _help
 }
 
@@ -115,8 +105,6 @@ post_upgrade() {
   mkinitcpio -p linux${KERNEL_NAME}
 
   _add_groups
-  _fix_permissions
-
   _help
 }
 

@@ -112,7 +112,7 @@ build() {
 package_linux-grsec() {
   pkgdesc="The Linux Kernel and modules with grsecurity/PaX patches"
   groups=('base')
-  depends=('gradm' 'linux-pax-flags' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
+  depends=('gradm' 'paxctld' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
   provides=('kernel26-grsec')
   conflicts=('kernel26-grsec')
@@ -309,7 +309,7 @@ sha256sums=('becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
             'SKIP'
             '05a56a5e95ebb3758fe58aa3f73466c61bba29f8010c9391ec10c78555b123e2'
             '3ef844dee9563031f9ab2e084cabe1ac2f1027cc540fbbe6a40da6942bdbb1dd'
-            '94861b173ad39c68ed596d98b7386fdeff5b20a305420ed6d4c70e91f5ce740a'
+            'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             '10479bae8a966f0aedbea5ddf24bb6e7da120c705099e9098990224e9f16eb03'
             '520fb5c0b117e2abf6378c7677ab905be89293350661f895dd7b7a06d3622cb3')
