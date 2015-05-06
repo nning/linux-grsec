@@ -16,11 +16,11 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=3.19
+_basekernel=4.0
 _grsecver=3.1
-_timestamp=201505021013
-pkgver=${_basekernel}.6
-pkgrel=3
+_timestamp=201505042053
+pkgver=${_basekernel}.1
+pkgrel=1
 arch=(x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -39,8 +39,8 @@ _menuconfig=0
 _grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 
 source=(
-  https://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz
-  https://www.kernel.org/pub/linux/kernel/v3.x/patch-$pkgver.xz
+  https://www.kernel.org/pub/linux/kernel/v4.x/linux-$_basekernel.tar.xz
+  https://www.kernel.org/pub/linux/kernel/v4.x/patch-$pkgver.xz
   https://grsecurity.net/test/$_grsec_patch{,.sig}
   config.x86_64
   $pkgname.install
@@ -302,11 +302,11 @@ package_linux-grsec-headers() {
   rm -rf "${pkgdir}"/usr/lib/modules/${_kernver}/build/arch/{alpha,arc,arm,arm26,arm64,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,metag,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,xtensa}
 }
 
-sha256sums=('be42511fe5321012bb4a2009167ce56a9e5fe362b4af43e8c371b3666859806c'
-            '8dd82b6e2daca608e18dcda50b370b089dd45a7b3915ea274b59bfe15f657026'
-            'b79c66516430883aee8f7bad102d4ddc3655f244784c966cbc0defac936173af'
+sha256sums=('0f2f7d44979bc8f71c4fc5d3308c03499c26a824dd311fdf6eef4dee0d7d5991'
+            '9b4b47eb6584dc39aaa5db46843b83f7c60975abecbda4dc106a8722eabe96fb'
+            '9944bf62201fa0ad86bc9d4a5e0368d64967b626933261868b2402547abd039b'
             'SKIP'
-            'a87cceec049884cc9275b3f5e23498d645d34137299997e4dfcfaf15496b04a5'
+            '566e3d842941b5df15b37a6704c72c6842595a7181357a424fb1f33249b0c7b1'
             'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             '10479bae8a966f0aedbea5ddf24bb6e7da120c705099e9098990224e9f16eb03'
