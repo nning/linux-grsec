@@ -18,8 +18,8 @@ true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=4.5
 _grsecver=3.1
-_timestamp=201606051644
-pkgver=${_basekernel}.6
+_timestamp=201606080852
+pkgver=${_basekernel}.7
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/nning/linux-grsec'
@@ -136,8 +136,8 @@ package_linux-grsec() {
 
   # add vmlinux and gcc plugins
   install -Dm644 vmlinux "$pkgdir/usr/src/linux-$_kernver/vmlinux"
-  mkdir -p "$pkgdir/usr/src/linux-$_kernver/tools/gcc"
-  install -m644 tools/gcc/*.so "$pkgdir/usr/src/linux-$_kernver/tools/gcc/"
+  # mkdir -p "$pkgdir/usr/src/linux-$_kernver/tools/gcc"
+  # install -m644 tools/gcc/*.so "$pkgdir/usr/src/linux-$_kernver/tools/gcc/"
 
   # install fallback mkinitcpio.conf file and preset file for kernel
   install -D -m644 "${srcdir}/${pkgname}.preset" "${pkgdir}/etc/mkinitcpio.d/${pkgname}.preset"
@@ -303,8 +303,8 @@ package_linux-grsec-headers() {
 }
 
 sha256sums=('a40defb401e01b37d6b8c8ad5c1bbab665be6ac6310cdeed59950c96b31a519c'
-            'b178f252af7459cfa6be435620f932e4ac99f7542b195ccdf34051db31e313ba'
-            '35f99c794f664a2261186655c7d8401c6de78a85202c8d4383ccab3b47f5b7fa'
+            '8fc8b46b44e49d5472745484751ba653be0c0e04554749ad276f3d0bc56a9bb3'
+            '505b50caffc99761dc7e52000d9e183f092c97a547a49cf83f6d19684918eced'
             'SKIP'
             '1445a503f99448594b2a7ded3708c6f87fce7cbe554988fb9856af65fbaa4953'
             'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
