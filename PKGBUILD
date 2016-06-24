@@ -39,8 +39,8 @@ _menuconfig=0
 _grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 
 source=(
-  https://www.kernel.org/pub/linux/kernel/v4.x/linux-$_basekernel.tar.xz
-  https://www.kernel.org/pub/linux/kernel/v4.x/patch-$pkgver.xz
+  https://www.kernel.org/pub/linux/kernel/v4.x/linux-$_basekernel.tar.{xz,sign}
+  https://www.kernel.org/pub/linux/kernel/v4.x/patch-$pkgver.{xz,sign}
   https://grsecurity.net/test/$_grsec_patch{,.sig}
   config.x86_64
   $pkgname.install
@@ -49,7 +49,11 @@ source=(
   module-blacklist.conf
 )
 
-validpgpkeys=('DE9452CE46F42094907F108B44D1C0F82525FE49')
+validpgpkeys=(
+  ABAF11C65A2970B130ABE3C479BE3E4300411886 # Linus Torvalds
+  647F28654894E3BD457199BE38DBBDC86092693E # Greg Kroah-Hartman
+  DE9452CE46F42094907F108B44D1C0F82525FE49 # Bradley Spengler
+)
 
 build() {
   cd "$srcdir/linux-$_basekernel"
@@ -303,7 +307,9 @@ package_linux-grsec-headers() {
 }
 
 sha256sums=('a40defb401e01b37d6b8c8ad5c1bbab665be6ac6310cdeed59950c96b31a519c'
+            'SKIP'
             '8fc8b46b44e49d5472745484751ba653be0c0e04554749ad276f3d0bc56a9bb3'
+            'SKIP'
             '1fb66e7f70efd7d22b8ea7960aae3f07f9a45b660b1972fa95b337d17715a237'
             'SKIP'
             '1445a503f99448594b2a7ded3708c6f87fce7cbe554988fb9856af65fbaa4953'
