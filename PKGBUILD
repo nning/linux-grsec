@@ -16,11 +16,11 @@
 pkgname=linux-grsec
 true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
-_basekernel=4.5
+_basekernel=4.6
 _grsecver=3.1
-_timestamp=201606302132
-pkgver=${_basekernel}.7
-pkgrel=10
+_timestamp=201607051723
+pkgver=${_basekernel}.3
+pkgrel=1
 arch=(x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -306,13 +306,24 @@ package_linux-grsec-headers() {
   rm -rf "${pkgdir}"/usr/lib/modules/${_kernver}/build/arch/{alpha,arc,arm,arm26,arm64,avr32,blackfin,c6x,cris,frv,h8300,hexagon,ia64,m32r,m68k,m68knommu,metag,mips,microblaze,mn10300,openrisc,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,unicore32,um,v850,xtensa}
 }
 
-sha256sums=('a40defb401e01b37d6b8c8ad5c1bbab665be6ac6310cdeed59950c96b31a519c'
+sha256sums=('a93771cd5a8ad27798f22e9240538dfea48d3a2bf2a6a6ab415de3f02d25d866'
             'SKIP'
-            '8fc8b46b44e49d5472745484751ba653be0c0e04554749ad276f3d0bc56a9bb3'
+            '036f83f8a3475d9e7e0b8edc188f9a4f495abc3b187ed87748cdbc063c0c419f'
             'SKIP'
-            '1fd45ee86a7de30ccbb56758d5f03204dfd8fb8a3eb33d73b6f0fd8f9d6d13ff'
+            '9012f5823298dc5ea0f30b4159fca22a8c400afb24e6206d6b612f476378e7f5'
             'SKIP'
             'ecad131bd3353ba34ffd88a0b651ea83424a76dd24b8c72ea09f30f3026bb5ef'
+            'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
+            'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
+            '4a39a0d22723a2054b6c8585c403008e70e0b1a4f86d8180cdd5eb06952ae26e'
+            '520fb5c0b117e2abf6378c7677ab905be89293350661f895dd7b7a06d3622cb3')
+sha256sums=('a93771cd5a8ad27798f22e9240538dfea48d3a2bf2a6a6ab415de3f02d25d866'
+            'SKIP'
+            '036f83f8a3475d9e7e0b8edc188f9a4f495abc3b187ed87748cdbc063c0c419f'
+            'SKIP'
+            '9012f5823298dc5ea0f30b4159fca22a8c400afb24e6206d6b612f476378e7f5'
+            'SKIP'
+            '465384b1f79c3ae4f8d2a874f6aa75c60b1e73d9264ed3693a331f836e9b5f08'
             'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
             'ca7e718375b3790888756cc0a64a7500cd57dddb9bf7e10a0df22c860d91f74d'
             '4a39a0d22723a2054b6c8585c403008e70e0b1a4f86d8180cdd5eb06952ae26e'
