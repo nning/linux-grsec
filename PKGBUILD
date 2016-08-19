@@ -18,8 +18,8 @@ true && pkgname=(linux-grsec linux-grsec-headers)
 _kernelname=${pkgname#linux}
 _basekernel=4.7
 _grsecver=3.1
-_timestamp=201608151842
-pkgver=${_basekernel}
+_timestamp=201608161813
+pkgver=${_basekernel}.1
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/nning/linux-grsec'
@@ -40,7 +40,7 @@ _grsec_patch="grsecurity-$_grsecver-$pkgver-$_timestamp.patch"
 
 source=(
   https://www.kernel.org/pub/linux/kernel/v4.x/linux-$_basekernel.tar.{xz,sign}
-  # https://www.kernel.org/pub/linux/kernel/v4.x/patch-$pkgver.{xz,sign}
+  https://www.kernel.org/pub/linux/kernel/v4.x/patch-$pkgver.{xz,sign}
   https://grsecurity.net/test/$_grsec_patch{,.sig}
   config.x86_64
   $pkgname.install
@@ -308,7 +308,9 @@ package_linux-grsec-headers() {
 
 sha256sums=('5190c3d1209aeda04168145bf50569dc0984f80467159b1dc50ad731e3285f10'
             'SKIP'
-            'ffdd69d7ffa1953bb3523b432f8eb98a5508d884e07bd74000425685619dff43'
+            '838fa595436fbf9f70759aa43c1cacd83cc0adc95d166648c1625ebd50fad04e'
+            'SKIP'
+            'f2de5ba6948de3539ffd7fb1fede35acce9b2165efd8b8a49a87d6b31ff2ea5e'
             'SKIP'
             '440be32c1bc5a5c7973b41cb626121de8e9241caed71196fee68a4b29cafd6a2'
             'b7490046d09f3784e271d1df1c3344042bf7d4b58b2589ebef0e2b929b5d94c5'
