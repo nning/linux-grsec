@@ -40,12 +40,6 @@ _add_socket_deny_groups() {
   fi
 }
 
-_add_proc_group() {
-  if ! getent group proc-trusted >/dev/null; then
-    groupadd -g 205 -r proc-trusted
-  fi
-}
-
 _add_groups() {
   _add_tpe_group
   _add_socket_deny_groups
