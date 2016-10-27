@@ -46,7 +46,7 @@ _add_groups() {
 }
 
 _remove_groups() {
-  for group in proc-trusted tpe socket-deny-server socket-deny-client socket-deny-all; do
+  for group in tpe socket-deny-server socket-deny-client socket-deny-all; do
     if getent group $group >/dev/null; then
 	  groupdel $group
     fi
@@ -59,7 +59,7 @@ cat <<EOF
 Configuration of grsecurity features via sysctl is possible in
 "/etc/sysctl.d/05-grsecurity.conf".
 
-For group tpe, Trusted Path Execution is disabled. For group proc-trusted, the
+For group tpe, Trusted Path Execution is disabled. For group proc, the
 access to /proc is not restricted. Think carefully before adding a normal user
 to these groups.
 
