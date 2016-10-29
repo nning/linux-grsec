@@ -20,7 +20,7 @@ _basekernel=4.7
 _grsecver=3.1
 _timestamp=201610262029
 pkgver=${_basekernel}.10
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://github.com/nning/linux-grsec'
 license=(GPL2)
@@ -115,8 +115,8 @@ build() {
 package_linux-grsec() {
   pkgdesc="The Linux Kernel and modules with grsecurity/PaX patches"
   groups=('base')
-  depends=('gradm' 'paxctld' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
-  optdepends=('crda: to set the correct wireless channels of your country')
+  depends=('gradm' 'coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
+  optdepends=('crda: to set the correct wireless channels of your country' 'paxctld: to automatically set PaX flags')
   provides=('kernel26-grsec')
   conflicts=('kernel26-grsec')
   replaces=('kernel26-grsec')
