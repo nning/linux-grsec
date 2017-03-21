@@ -53,7 +53,7 @@ class Pkgbuild
     write c.join
 
     if @hash
-      o, e, s = Open3.capture3 'makepkg -g'
+      o, _, s = Open3.capture3 'makepkg -g'
       c << o if s.success?
     end
 
