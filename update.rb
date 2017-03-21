@@ -73,7 +73,7 @@ class Pkgbuild
 end
 
 class Patch
-  URI = 'http://grsecurity.net/download.php'
+  URI = 'https://grsecurity.net/testing_rss.php'
 
   attr_reader :version, :timestamp
 
@@ -83,8 +83,8 @@ class Patch
 
   def filename
     unless @filename
-      doc = Nokogiri::HTML open URI
-      patches = doc.css('div.left a').map &:content
+      doc = Nokogiri::XML open URI
+      patches = doc.css('item link').map(&:content).select{|l| l.end_with? '.patch'}
       v = newest patches
       @filename = patches.select { |x| x.include? v }.first
     end
