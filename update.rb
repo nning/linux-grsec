@@ -74,6 +74,7 @@ end
 
 class Patch
   URI = 'http://grsecurity.net/download.php'
+  URI_RSS = 'https://grsecurity.net/testing_rss.php'
 
   attr_reader :version, :timestamp
 
@@ -83,13 +84,22 @@ class Patch
 
   def filename
     unless @filename
-      doc = Nokogiri::HTML open URI
-      patches = doc.css('div.left a').map &:content
+      patches = ENV['METHOD'] == 'rss' ? patches_rss : patches_html
       v = newest patches
       @filename = patches.select { |x| x.include? v }.first
     end
 
     @filename
+  end
+
+  def patches_html
+    doc = Nokogiri::HTML open URI
+    patches = doc.css('div.left a').map &:content
+  end
+
+  def patches_rss
+    doc = Nokogiri::XML open URI_RSS
+    patches = doc.css('item link').map &:content
   end
 
   def major
